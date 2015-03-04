@@ -62,3 +62,6 @@ build/
 
 ## OS Specific
 .DS_Store
+
+##ABadNight working directory
+work/
