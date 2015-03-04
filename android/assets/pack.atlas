@@ -1,0 +1,304 @@
+
+pack.png
+size: 512,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+HUD
+  rotate: false
+  xy: 2, 171
+  size: 320, 32
+  orig: 320, 32
+  offset: 0, 0
+  index: -1
+building
+  rotate: false
+  xy: 166, 39
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+building
+  rotate: false
+  xy: 324, 177
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+building
+  rotate: false
+  xy: 358, 211
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+building1
+  rotate: false
+  xy: 132, 39
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+building2
+  rotate: false
+  xy: 324, 211
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+buttonPressed
+  rotate: false
+  xy: 2, 2
+  size: 27, 27
+  split: 3, 3, 3, 3
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+buttonUp
+  rotate: false
+  xy: 200, 44
+  size: 27, 27
+  split: 3, 3, 3, 3
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+cannon
+  rotate: false
+  xy: 296, 119
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+checkboxOff
+  rotate: false
+  xy: 494, 203
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+checkboxOn
+  rotate: false
+  xy: 494, 185
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gauge
+  rotate: false
+  xy: 324, 245
+  size: 128, 8
+  orig: 128, 8
+  offset: 0, 0
+  index: -1
+gaugeFill
+  rotate: false
+  xy: 2, 31
+  size: 128, 8
+  orig: 128, 8
+  offset: 0, 0
+  index: -1
+knob
+  rotate: false
+  xy: 494, 221
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+meteor1
+  rotate: false
+  xy: 230, 105
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+moon
+  rotate: false
+  xy: 132, 73
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+moveArea
+  rotate: false
+  xy: 2, 205
+  size: 320, 48
+  orig: 320, 48
+  offset: 0, 0
+  index: -1
+multiplier
+  rotate: false
+  xy: 358, 177
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+multiplier
+  rotate: false
+  xy: 392, 211
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+multiplier
+  rotate: false
+  xy: 392, 177
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+points
+  rotate: false
+  xy: 230, 71
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+points
+  rotate: false
+  xy: 264, 71
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+points
+  rotate: false
+  xy: 426, 211
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+rocket
+  rotate: false
+  xy: 426, 177
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+rocket
+  rotate: false
+  xy: 296, 137
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+sliderBackground
+  rotate: false
+  xy: 296, 108
+  size: 9, 9
+  split: 3, 3, 3, 3
+  orig: 9, 9
+  offset: 0, 0
+  index: -1
+smoke1
+  rotate: false
+  xy: 330, 143
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+smoke2
+  rotate: false
+  xy: 364, 143
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+smoke3
+  rotate: false
+  xy: 398, 143
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+star
+  rotate: false
+  xy: 166, 21
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tank
+  rotate: false
+  xy: 432, 143
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+tank
+  rotate: false
+  xy: 229, 37
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+tank
+  rotate: false
+  xy: 263, 37
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+tank
+  rotate: false
+  xy: 460, 221
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+tank
+  rotate: false
+  xy: 460, 187
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+tank
+  rotate: false
+  xy: 330, 109
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 6
+title
+  rotate: false
+  xy: 2, 41
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+ufo
+  rotate: false
+  xy: 364, 109
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+ufo
+  rotate: false
+  xy: 398, 109
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+ufo
+  rotate: false
+  xy: 432, 109
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+ufo
+  rotate: false
+  xy: 132, 5
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+window
+  rotate: false
+  xy: 31, 5
+  size: 24, 24
+  split: 2, 2, 3, 3
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
