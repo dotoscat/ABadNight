@@ -224,6 +224,8 @@ public class BadNight extends Game{
 		assets.load("Explosio-Diode111-8778_hifi.wav", Sound.class);
 		assets.load("UFO_Hu-Mr_PantZ-7379_hifi.wav", Sound.class);
 		assets.load("powerUp.wav", Sound.class);
+		assets.load("paralizerShoot.wav", Sound.class);
+		assets.load("paralizerHit.wav", Sound.class);
 		assets.load("A-Bad-Night.ogg", Music.class);
 		
 		ParticleEffectParameter effectParameter = new ParticleEffectParameter();
@@ -242,6 +244,8 @@ public class BadNight extends Game{
 		sounds.put("explosion", (Sound)assets.get("Explosio-Diode111-8778_hifi.wav") );
 		sounds.put("UFO", (Sound)assets.get("UFO_Hu-Mr_PantZ-7379_hifi.wav") );
 		sounds.put("powerUp", (Sound)assets.get("powerUp.wav") );
+		sounds.put("paralizerShoot", (Sound)assets.get("paralizerShoot.wav" ) );
+		sounds.put("paralizerHit", (Sound)assets.get("paralizerHit.wav" ) );
 		//if there are more sound for load consider implement
 		//a loader that uses the hashmap and a config text file
 		

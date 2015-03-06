@@ -972,9 +972,11 @@ public class Engine implements Screen, InputProcessor {
 				break;
 			case DROP_PARALIZER:
 				newParalizer(aMessage.positionX, aMessage.positionY, aMessage.value);
+				BadNight.badNight.playSound("paralizerShoot", MathUtils.random(0.9f, 1.1f));
 				break;
 			case CREATE_PARALIZED_EFFECT:
 				newParalizedEffect(aMessage.positionX, aMessage.positionY, aMessage.value);
+				BadNight.badNight.playSound("paralizerHit", MathUtils.random(0.9f, 1.1f));
 				break;
 			case NONE:
 				break;
