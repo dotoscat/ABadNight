@@ -31,10 +31,14 @@ public class Title extends VerticalGroup {
 		Image title = new Image(spriteTitle);
 		this.addActor(title);
 		
+		Label versionAndRevision = gui.GiveMeLabel(BadNight.getVersionAndRevision());
+		this.addActor(versionAndRevision);
+		
 		TextButton start = gui.giveMeTextButton("START");
 		this.addActor(start);
 		start.addListener( new GoToMainMenu() );
-		GUI.setButtonFakeSize(start, BadNight.VWIDTH/1.2f, 64f);		
+		GUI.setButtonFakeSize(start, BadNight.VWIDTH/1.2f, 64f);
+		
 	}
 	
 }

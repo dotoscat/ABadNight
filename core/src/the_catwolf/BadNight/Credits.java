@@ -20,6 +20,9 @@ public class Credits extends VerticalGroup{
 		Image title = new Image(spriteTitle);
 		this.addActor(title);
 		
+		Label versionAndRevision = gui.GiveMeLabel(BadNight.getVersionAndRevision());
+		this.addActor(versionAndRevision);
+		
 		Label author = gui.GiveMeLabel("Design, development and graphics\nOscar Triano García (dotteri_thecatwolf)");
 		author.setWidth(BadNight.VWIDTH);
 		this.addActor(author);

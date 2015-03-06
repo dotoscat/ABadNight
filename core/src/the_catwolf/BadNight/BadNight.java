@@ -26,6 +26,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -37,6 +38,8 @@ public class BadNight extends Game{
 	static public HashMap<String, Integer> leaderboard;
 	
 	static public BadNight badNight;
+	final private static int VERSION=1;
+	final private static int REVISION=1;
 		
 	AssetManager assets;
 	
@@ -422,6 +425,10 @@ public class BadNight extends Game{
 	
 	public BadNight.Camera getCamera(){
 		return camera;
+	}
+	
+	static public String getVersionAndRevision(){
+		return "version " + VERSION + "." + REVISION;
 	}
 	
 }

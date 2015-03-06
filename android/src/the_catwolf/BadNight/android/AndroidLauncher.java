@@ -111,7 +111,9 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 		builder.tagForChildDirectedTreatment(true);
 		builder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
 		///builder.addTestDevice("XXXXXXXXXXXXXXXXX");
-		builder.addTestDevice("F52C626B06EBC43FCC089A0B771E7A8");
+		//03-06 00:22:55.973: I/Ads(15122): Use AdRequest.Builder.addTestDevice("B44848B38415B34DB35C39014B3464D7") to get test ads on this device.
+		builder.addTestDevice("B44848B38415B34DB35C39014B3464D7");
+		//builder.addTestDevice("F52C626B06EBC43FCC089A0B771E7A8");
 		AdRequest request = builder.build();
 		adView.loadAd(request);
 		adView.requestLayout();
