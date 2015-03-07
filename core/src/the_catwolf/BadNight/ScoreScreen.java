@@ -9,35 +9,34 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class ScoreScreen extends MenuWithParent {
-	private Label name;
 	private Label[] entry;
 	private StringBuilder entryBuilder;
 		
 	public ScoreScreen(BadNight game, int entries){
-		name = GUI.get().GiveMeLabel("");
+		super("", GUI.get().getWindowStyle());
 		
-		this.addActor(name);
+		this.pad(GUI.ELEMENT_SPACE2);
+		this.padTop(GUI.ELEMENT_SPACE3);
+		this.setWidth(BadNight.VWIDTH/2f);
+		this.setBackground(GUI.get().giveMeWindowsDrawable());
 		
 		entry = new Label[entries];
 		for(int i = 0; i < entries; i += 1){
 			entry[i] = GUI.get().GiveMeLabel("");
-			addActor(entry[i]);
+			add(entry[i]).fill().space(GUI.ELEMENT_SPACE2).row();
 		}
 		entryBuilder = new StringBuilder();
 		
 		HorizontalGroup controlGroup = new HorizontalGroup();
 		TextButton backButton = this.giveMeBackButtonToLastMenu("Back");
 		GUI.setButtonFakeSize(backButton, 128f, 42f);
-		
 		controlGroup.addActor(backButton);
-		addActor(controlGroup);
+		add(controlGroup).fill().space(GUI.ELEMENT_SPACE2);
 		
 	}
 	
 	public void fill(Score score){
-		
-		name.setText(score.getName());
-		
+		this.setTitle(score.getName());
 		score.load();
 		for(int i = 0; i < score.entry.length && i < entry.length; i += 1){
 			entryBuilder.setLength(0);
@@ -49,8 +48,6 @@ public class ScoreScreen extends MenuWithParent {
 			//entry[i].setText(i+1 + ". " + score.entry[i].name + " - " + score.entry[i].points);
 			entry[i].setText(entryBuilder);
 		}
-		
-		this.fill();
 		
 	}
 		

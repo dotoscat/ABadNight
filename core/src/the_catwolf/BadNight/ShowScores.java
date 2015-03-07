@@ -4,9 +4,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-public class ShowScores extends VerticalGroup {
+public class ShowScores extends Window {
 
 	static class ViewResistance100Score extends ChangeListener{
 		 
@@ -40,8 +41,15 @@ public class ShowScores extends VerticalGroup {
 	}
 	
 	public ShowScores(BadNight game){
-		space(GUI.ELEMENT_SPACE);
+		super("Scores", GUI.get().getWindowStyle());
 		GUI gui = GUI.get();
+		
+		this.pad(GUI.ELEMENT_SPACE2);
+		this.padTop(GUI.ELEMENT_SPACE3);
+		this.setWidth(BadNight.VWIDTH/2f);
+		this.setBackground(gui.giveMeWindowsDrawable());
+		this.setMovable(false);
+		this.setResizable(false);
 		
 		Label scores = gui.GiveMeLabel("Scores");
 		this.addActor(scores);
@@ -57,11 +65,10 @@ public class ShowScores extends VerticalGroup {
 		
 		TextButton back = gui.giveMeABackButton("back", BadNight.badNight.mainMenu);
 		
-		this.addActor(viewResistanceScores);
-		this.addActor(viewTimeAttack2Score);
-		this.addActor(viewTimeAttack5Score);
-		this.addActor(back);
-		this.fill();
+		this.add(viewResistanceScores).fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(viewTimeAttack2Score).fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(viewTimeAttack5Score).fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(back).fill().space(GUI.ELEMENT_SPACE2);
 		
 	}
 	

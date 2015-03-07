@@ -5,10 +5,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-public class MainMenu extends VerticalGroup{
+public class MainMenu extends Window{
 	
 	static class ShowScores extends ChangeListener{
 
@@ -71,10 +72,15 @@ public class MainMenu extends VerticalGroup{
 	} 
 	
 	public MainMenu(BadNight game){
-						
-		space(GUI.ELEMENT_SPACE);
-		
+		super("Main Menu", GUI.get().getWindowStyle());	
 		GUI gui = GUI.get();
+		
+		this.pad(GUI.ELEMENT_SPACE2);
+		this.padTop(GUI.ELEMENT_SPACE3);
+		this.setWidth(BadNight.VWIDTH/2f);
+		this.setBackground(gui.giveMeWindowsDrawable());
+		this.setMovable(false);
+		this.setResizable(false);
 		
 		TextButton play = gui.giveMeTextButton("Play");
 		play.addListener( new Play() );
@@ -93,16 +99,15 @@ public class MainMenu extends VerticalGroup{
 		exit.addListener(new Exit() );
 		GUI.setButtonFakeSize(exit, 128f, GUI.BUTTON_HEIGHT);
 		
-		addActor(play);
-		addActor(options);
-		addActor(achievements);
-		addActor(leaderboards);
-		addActor(localScores);
-		addActor(credits);
-		addActor(exit);
+		this.add(play).fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(options).fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(achievements).fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(leaderboards).fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(localScores).fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(credits).fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(exit).fill().space(GUI.ELEMENT_SPACE2);
 		
-		center();
-		layout();
-		fill();
+		//center();
+		//layout();
 	}	
 }

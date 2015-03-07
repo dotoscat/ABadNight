@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class Options extends MenuWithParent {	
@@ -77,10 +78,10 @@ public class Options extends MenuWithParent {
 	
 	static class GoToOptions extends ChangeListener{
 
-		private VerticalGroup currentMenu;
+		private WidgetGroup currentMenu;
 		
-		public GoToOptions(VerticalGroup currentMenu){
-			this.currentMenu = currentMenu;
+		public GoToOptions(WidgetGroup currentMenu2){
+			this.currentMenu = currentMenu2;
 		}
 		
 		@Override
@@ -110,8 +111,13 @@ public class Options extends MenuWithParent {
 	}
 	
 	public Options(BadNight game){
-		space(GUI.ELEMENT_SPACE);
+		super("Options", GUI.get().getWindowStyle());
 		GUI gui = GUI.get();
+		
+		this.pad(GUI.ELEMENT_SPACE2);
+		this.padTop(GUI.ELEMENT_SPACE3);
+		this.setWidth(BadNight.VWIDTH/2f);
+		this.setBackground(gui.giveMeWindowsDrawable());
 		
 		HorizontalGroup soundGroup = new HorizontalGroup();
 		
@@ -125,9 +131,7 @@ public class Options extends MenuWithParent {
 		soundSlider.setValue(game.gameData.soundVolume * 5f);
 		soundSlider.addListener( new SetSoundVolume() );
 		soundGroup.addActor(soundSlider);
-		
-		addActor(soundGroup);
-		
+				
 		HorizontalGroup musicGroup = new HorizontalGroup();
 		musicGroup.space(GUI.ELEMENT_SPACE);
 		Label musicLabel = gui.GiveMeLabel("Music");
@@ -139,28 +143,26 @@ public class Options extends MenuWithParent {
 		musicSlider.setValue(game.gameData.musicVolume * 5f);
 		musicSlider.addListener( new SetMusicVolume() );
 		musicGroup.addActor(musicSlider);
-		
-		addActor(musicGroup);
-		
+				
 		vibrationCheckBox = gui.giveMeCheckBox("Vibration");
 		vibrationCheckBox.setChecked( game.gameData.usesVibration );
 		vibrationCheckBox.addListener( new SetVibration() );
-		addActor(vibrationCheckBox);
 				
 		signGooglePlayServices = gui.giveMeTextButton("");
 		signGooglePlayServices.addListener( new LogoutGooglePlayServices(game.googleServices) );
 		
-		addActor(signGooglePlayServices);
-		
 		TextButton backButton = gui.giveMeTextButton("Back");
 		backButton.addListener( new BackFromOptions(this) );
 		GUI.setButtonFakeSize(backButton, 0f, 64f);
-		addActor(backButton);
 		
-		fill();
+		this.add(soundGroup).fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(musicGroup).fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(vibrationCheckBox).fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(signGooglePlayServices).fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(backButton).fill().space(GUI.ELEMENT_SPACE2);
 	}
 	
-	static public TextButton giveMeAOptionsButton(VerticalGroup currentMenu){
+	static public TextButton giveMeAOptionsButton(WidgetGroup currentMenu){
 		TextButton optionsButton = GUI.get().giveMeTextButton("Options");
 		optionsButton.addListener( new GoToOptions(currentMenu) );
 		return optionsButton;

@@ -34,6 +34,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ArrayMap;
@@ -268,13 +269,11 @@ public class Engine implements Screen, InputProcessor {
 	
 	Rectangle shootArea;
 	
-	public VerticalGroup gameOptions;
+	public Window gameOptions;
 			
 	public TextButton continueButton;
 	TextButton submitScoreButton;
-	
-	Label labelShowGameMode;
-	
+		
 	public enum State{
 		PAUSED,
 		RUNNING,
@@ -807,21 +806,21 @@ public class Engine implements Screen, InputProcessor {
 		submitScoreButton.addListener( new SubmitScore() );
 		
 		exitButton.addListener(new ExitGame());
-		Label.LabelStyle labelStyle = new Label.LabelStyle(BadNight.badNight.font, Color.LIGHT_GRAY);
+				
+		gameOptions = GUI.get().giveMeWindow("");
 		
-		labelShowGameMode = new Label("", labelStyle);
+		gameOptions.pad(GUI.ELEMENT_SPACE2);
+		gameOptions.padTop(GUI.ELEMENT_SPACE3);
+		gameOptions.setWidth(BadNight.VWIDTH/2f);
+		gameOptions.setBackground(gui.giveMeWindowsDrawable());
+		gameOptions.setMovable(false);
+		gameOptions.setResizable(false);
 		
-		gameOptions = new VerticalGroup();
-		gameOptions.space(GUI.ELEMENT_SPACE);
-		
-		//gameOptions.align(Align.center);
-		gameOptions.addActor(labelShowGameMode);
-		gameOptions.addActor(continueButton);
-		gameOptions.addActor(retryButton);
-		gameOptions.addActor(optionsButton);
-		gameOptions.addActor(submitScoreButton);
-		gameOptions.addActor(exitButton);
-		gameOptions.fill();
+		gameOptions.add(continueButton).fill().space(GUI.ELEMENT_SPACE2).row();
+		gameOptions.add(retryButton).fill().space(GUI.ELEMENT_SPACE2).row();
+		gameOptions.add(optionsButton).fill().space(GUI.ELEMENT_SPACE2).row();
+		gameOptions.add(submitScoreButton).fill().space(GUI.ELEMENT_SPACE2).row();
+		gameOptions.add(exitButton).fill().space(GUI.ELEMENT_SPACE2);
 		
 		insertRecord = new InsertRecord(this);
 	}

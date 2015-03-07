@@ -14,6 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider.SliderStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
@@ -32,6 +35,7 @@ public class GUI {
 	private CheckBox.CheckBoxStyle checkBoxStyle;
 	private SliderStyle sliderStyle;
 	private Label.LabelStyle labelStyle;
+	private Window.WindowStyle windowStyle;
 	
 	static public void init(){
 		GUI = new GUI(BadNight.badNight);
@@ -42,14 +46,16 @@ public class GUI {
 	}
 	
 	final static float ELEMENT_SPACE = 8f;
+	final static float ELEMENT_SPACE2 = 16f;
+	final static float ELEMENT_SPACE3 = 32f;
 	final static float BUTTON_HEIGHT = 64;
 	
 	private static class Back extends ChangeListener{
 
-		private VerticalGroup lastMenu;
+		private WidgetGroup lastMenu;
 		
-		public Back(VerticalGroup lastMenu){
-			this.lastMenu = lastMenu;
+		public Back(WidgetGroup last){
+			this.lastMenu = last;
 		}
 		
 		@Override
@@ -96,6 +102,8 @@ public class GUI {
 			new SpriteDrawable( graphics.createSprite("knob") )
 		);
 		labelStyle = new Label.LabelStyle(game.font, Color.WHITE);
+		
+		windowStyle = new Window.WindowStyle(game.font, Color.WHITE, windowDrawable);
 	}
 	
 	public NinePatchDrawable giveMeWindowsDrawable(){
@@ -107,7 +115,7 @@ public class GUI {
 		return newButton;
 	}
 	
-	public TextButton giveMeABackButton(String text, VerticalGroup last){
+	public TextButton giveMeABackButton(String text, WidgetGroup last){
 		TextButton newButton = giveMeTextButton(text);
 		newButton.addListener( new Back(last) );
 		return newButton;
@@ -126,6 +134,22 @@ public class GUI {
 	public CheckBox giveMeCheckBox(String text){
 		CheckBox newCheckBox = new CheckBox(text, checkBoxStyle);
 		return newCheckBox;
+	}
+	
+	public Window giveMeWindow(String title){
+		Window newWindow = new Window(title, windowStyle);
+		newWindow.setModal(true);
+		newWindow.setMovable(false);
+		newWindow.setResizable(false);
+		return newWindow;
+	}
+	
+	public NinePatchDrawable getBackground(){
+		return windowDrawable;
+	}
+	
+	public WindowStyle getWindowStyle(){
+		return windowStyle;
 	}
 	
 	static public void setButtonFakeSize(Button button, float width, float height){
