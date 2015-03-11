@@ -214,7 +214,6 @@ public class BadNight extends Game{
 		private Vector3 newPosition;
 		private float time;
 		private float maxTime;
-		private float delta;
 		
 		public Camera(float viewportWidth, float viewportHeight){
 			super(VWIDTH, VHEIGHT);
@@ -236,11 +235,9 @@ public class BadNight extends Game{
 			if (time > maxTime){
 				time = maxTime;
 			}
-			if (movement == Movement.TO_TARGET){				
-				position.lerp(newPosition, delta);
-				if (time == maxTime){
-					position.set(newPosition);
-				}
+			if (movement == Movement.TO_TARGET){
+				//System.out.println(time + " / " + maxTime + "; " + time/maxTime);
+				position.interpolate(newPosition, time/maxTime, Interpolation.pow2Out);
 				update();
 			}
 			else if (movement == Movement.PATH){
@@ -264,7 +261,6 @@ public class BadNight extends Game{
 		public void setPositionTo(float y, float maxTime){
 			movement = Movement.TO_TARGET;
 			newPosition.y = y;
-			delta = maxTime/20f;
 			time = 0f;
 			this.maxTime = maxTime;
 			update();
