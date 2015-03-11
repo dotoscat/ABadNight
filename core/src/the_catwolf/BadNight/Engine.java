@@ -630,7 +630,7 @@ public class Engine implements Screen, InputProcessor {
 			engine.gameMode.getScore().save();
 			BadNight.badNight.scoreScreen.fill(engine.gameMode.getScore());
 			BadNight.badNight.scoreScreen.setLastMenu(engine.gameOptions);
-			BadNight.badNight.setContainer(BadNight.badNight.scoreScreen, BadNight.ENGINE_POSITION);
+			BadNight.badNight.setContainer(BadNight.badNight.scoreScreen, BadNight.CURRENT_FROM, BadNight.CURRENT_TO, BadNight.CURRENT_LEAVE);
 		}
 
 		@Override
@@ -813,6 +813,7 @@ public class Engine implements Screen, InputProcessor {
 		gameOptions.padTop(GUI.ELEMENT_SPACE3);
 		gameOptions.setWidth(BadNight.VWIDTH/2f);
 		gameOptions.setBackground(gui.giveMeWindowsDrawable());
+		gameOptions.setModal(false);
 		gameOptions.setMovable(false);
 		gameOptions.setResizable(false);
 		
@@ -1261,6 +1262,13 @@ public class Engine implements Screen, InputProcessor {
 		//pause();
 	}
 
+	public void animatedPause(){
+		if (state != State.RUNNING) return;
+		showAnimatedPauseMenu();
+		userPause();
+		setUserInput(false);
+	}
+	
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
@@ -1610,7 +1618,7 @@ public class Engine implements Screen, InputProcessor {
 	}
 	
 	public void resumeEngine(){
-		BadNight.badNight.container.setActor(null);
+		BadNight.badNight.getContainers().hide(BadNight.CURRENT_LEAVE, 1f);
 		state = State.RUNNING;
 		continueUFOSounds();
 		setUserInput(true);
@@ -1619,11 +1627,13 @@ public class Engine implements Screen, InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
-		if (BadNight.badNight.getCamera().isMoving()) return false;
+		if (BadNight.badNight.getCamera().isMoving()){
+			return false;
+		}
 		boolean pause = keycode == Input.Keys.P || keycode == Input.Keys.ENTER
 				|| keycode == Input.Keys.MENU || keycode == Input.Keys.BACK;
 		if (pause && state == State.RUNNING){
-			pause();
+			animatedPause();
 		}
 		else if (pause && state == State.PAUSED){
 			resumeEngine();
@@ -1815,9 +1825,14 @@ public class Engine implements Screen, InputProcessor {
 			BadNight.badNight.resumeSound("UFO", ufo[i].getSoundID());
 		}
 	}
-		
+	
+	public void showAnimatedPauseMenu(){
+		BadNight.badNight.setContainer(gameOptions, BadNight.CURRENT_FROM, BadNight.CURRENT_TO, BadNight.CURRENT_LEAVE);
+		stopUFOSounds();
+	}
+	
 	public void showPauseMenu(){
-		BadNight.badNight.setContainer(gameOptions, BadNight.ENGINE_POSITION);
+		BadNight.badNight.getContainers().set(gameOptions, BadNight.CURRENT_TO);
 		stopUFOSounds();
 	}
 				

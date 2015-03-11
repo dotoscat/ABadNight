@@ -16,7 +16,7 @@ public class Title extends VerticalGroup {
 		@Override
 		public void changed(ChangeEvent event, Actor actor) {
 			// TODO Auto-generated method stub
-			BadNight.badNight.setContainer(BadNight.badNight.mainMenu);
+			BadNight.badNight.setContainer(BadNight.badNight.mainMenu, BadNight.FROM1, BadNight.TO1, BadNight.LEAVE1);
 		}
 		
 	}

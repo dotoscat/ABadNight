@@ -20,14 +20,17 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Bezier;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -74,8 +77,8 @@ public class BadNight extends Game{
 	HashMap<String, Music> music;
 	Music currentMusic;
 	
-	Stage ui;
-	Container<Actor> container;
+	private Stage ui;
+	private Containers containers;
 	
 	public GoogleServices googleServices;
 	
@@ -89,8 +92,114 @@ public class BadNight extends Game{
 	
 	final static public float MAIN_MENU_POSITION = VHEIGHT/2f + VHEIGHT;
 	final static public float ENGINE_POSITION = VHEIGHT/2f;
+		
+	public final static Vector2 FROM1 = new Vector2(BadNight.VWIDTH/2-BadNight.VWIDTH, MAIN_MENU_POSITION);
+	public final static Vector2 TO1 = new Vector2(BadNight.VWIDTH/2, MAIN_MENU_POSITION);
+	public final static Vector2 LEAVE1 = new Vector2(BadNight.VWIDTH/2+BadNight.VWIDTH, MAIN_MENU_POSITION);
 	
-	final static public float MENU_POSITION = MAIN_MENU_POSITION - VHEIGHT/6f;
+	public final static Vector2 FROM2 = new Vector2(BadNight.VWIDTH/2-BadNight.VWIDTH, ENGINE_POSITION);
+	public final static Vector2 TO2 = new Vector2(BadNight.VWIDTH/2, ENGINE_POSITION);
+	public final static Vector2 LEAVE2 = new Vector2(BadNight.VWIDTH/2+BadNight.VWIDTH, ENGINE_POSITION);
+	
+	public static Vector2 CURRENT_FROM = FROM1;
+	public static Vector2 CURRENT_TO = TO1;
+	public static Vector2 CURRENT_LEAVE = LEAVE1;
+	
+	static public class Containers{
+		private Container<WidgetGroup>[] _container;
+		private Vector2[] _toPosition;
+		private float time;
+		private float maxTime;
+		
+		private static Vector2 tmp = new Vector2();
+		
+		public Containers(Stage stage){
+			_container = new Container[2];
+			_container[0] = new Container<WidgetGroup>();
+			_container[1] = new Container<WidgetGroup>();
+			
+			stage.addActor(_container[0]);
+			stage.addActor(_container[1]);
+			
+			_toPosition = new Vector2[2];
+			_toPosition[0] = new Vector2();
+			_toPosition[1] = new Vector2();
+			
+		}
+		
+		public void step(float dt){
+			if (time < maxTime){
+				time += dt;
+				if (time > maxTime){
+					time = maxTime;
+					_container[0].setTouchable(Touchable.enabled);
+				}
+				float alpha = time / maxTime;
+				tmp.x = _container[0].getX();
+				tmp.y = _container[0].getY();
+				tmp.interpolate(_toPosition[0], alpha, Interpolation.exp5Out);
+				_container[0].setPosition(tmp.x, tmp.y);
+				tmp.x = _container[1].getX();
+				tmp.y = _container[1].getY();
+				tmp.interpolate(_toPosition[1], alpha, Interpolation.exp5Out);
+				_container[1].setPosition(tmp.x, tmp.y);
+			}
+		}
+		
+		public void set(WidgetGroup group, Vector2 position){
+			time = 0f;
+			maxTime = 0f;
+			_container[0].setActor(group);
+			_container[0].center();
+			_container[0].setPosition(position.x, position.y);
+			_container[0].setVisible(true);
+			_container[1].setVisible(false);
+		}
+		
+		public WidgetGroup set(Vector2 start, Vector2 to, Vector2 moveTo, float maxTime, WidgetGroup group){
+			_container[0].setPosition(start.x, start.y);
+			_toPosition[0].set(to);
+			_container[1].setPosition(to.x, to.y);
+			_toPosition[1].set(moveTo);
+			time = 0f;
+			this.maxTime = maxTime;
+			_container[0].setVisible(true);
+			_container[0].setTouchable(Touchable.disabled);
+			_container[1].setVisible(true);
+			_container[1].setTouchable(Touchable.disabled);
+			WidgetGroup lastGroup = _container[0].getActor();
+			_container[1].setActor(lastGroup);
+			_container[0].setActor(group);
+			_container[0].center();
+			return lastGroup;
+		}
+		
+		public void hide(Vector2 moveTo, float maxTime){
+			
+			time = 0f;
+			this.maxTime = maxTime;
+			_toPosition[1].set(moveTo);
+			_container[1].setPosition(_container[0].getX(), _container[0].getY() );
+			_container[1].setActor(_container[0].getActor());
+			_container[0].setVisible(false);
+			_container[0].setActor(null);
+			_container[1].setVisible(true);
+			_container[1].setTouchable(Touchable.disabled);
+			
+			//quit();
+		}
+		
+		public void quit(){
+			_container[0].setVisible(false);
+			_container[0].setActor(null);
+			_container[1].setVisible(false);
+		}
+		
+		public boolean isMoving(){
+			return time < maxTime;
+		}
+		
+	}
 	
 	static public class Camera extends OrthographicCamera{
 		
@@ -269,12 +378,7 @@ public class BadNight extends Game{
 		PowerUp.init();
 		
 		ui = new Stage( viewport, batch );
-		container = new Container<Actor>();
-		//container.setBackground(GUI.get().giveMeWindowsDrawable());
-		//instead a background, try add the buttons to a window or something
-		
-		//container.align(Align.center);
-		ui.addActor(container);
+		containers = new Containers(ui);
 		
 		inputMulti.addProcessor(0, ui);
 		
@@ -302,7 +406,9 @@ public class BadNight extends Game{
 		options.checkWhetherSignedGooglePlayServices(googleServices);
 		Gdx.gl.glClearColor(0f, 0f, 0.25f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		camera.update(Gdx.graphics.getRawDeltaTime());
+		float rawDeltaTime = Gdx.graphics.getRawDeltaTime();
+		containers.step(rawDeltaTime);
+		camera.update(rawDeltaTime);
 		ui.act();
 		if (this.getScreen() != null){
 			super.render();
@@ -325,50 +431,40 @@ public class BadNight extends Game{
 		ui.dispose();
 	}
 	
-	public void setContainerWithLastMenu(MenuWithParent menuWithParent){
-		menuWithParent.setLastMenu(container.getActor());
-		setContainer(menuWithParent);
+	public void setContainerWithLastMenu(MenuWithParent menuWithParent, Vector2 from, Vector2 to, Vector2 leave){
+		menuWithParent.setLastMenu(containers.set(from, to, leave, 0.5f, menuWithParent));
 	}
 	
-	public void setContainer(Actor actor){
-		container.setActor(actor);
-		container.center();
+	public void setContainer(WidgetGroup group, Vector2 from, Vector2 to, Vector2 leave){
+		containers.set(from, to, leave, 0.5f, group);
 	}
-	
-	public void setContainer(Actor actor, float positionY){
-		container.setActor(actor);
-		container.center();
-		container.setPosition(BadNight.VWIDTH/2f, positionY);
-	}
-	
+		
 	public void setTitleMenu(){
-		setContainer(title, BadNight.MAIN_MENU_POSITION);
+		containers.set(title, BadNight.TO1);
 		camera.setPosition(BadNight.MAIN_MENU_POSITION);
 	}
 	
 	public void setMainMenu(){
+		BadNight.CURRENT_FROM = BadNight.FROM1;
+		BadNight.CURRENT_TO = BadNight.TO1;
+		BadNight.CURRENT_LEAVE = BadNight.LEAVE1;
 		inputMulti.removeProcessor(engine);
-		setContainer(mainMenu, BadNight.MAIN_MENU_POSITION);
+		containers.set(mainMenu, BadNight.CURRENT_TO);
 		engine.setDisplayStars();
 		camera.setPositionTo(BadNight.MAIN_MENU_POSITION, 1.5f);
 		stopCurrentMusic();
 	}
 		
-	public void setOptions(){
-		
-	}
-	
 	public void setEngine(){
+		BadNight.CURRENT_FROM = BadNight.FROM2;
+		BadNight.CURRENT_TO = BadNight.TO2;
+		BadNight.CURRENT_LEAVE = BadNight.LEAVE2;
 		inputMulti.addProcessor(engine);
 		camera.setPositionTo(ENGINE_POSITION, 1.5f);
-		container.setActor(null);
+		//containers.quit();
 		playMusic("A Bad Night");
 	}
-	
-	public void hideCurrentMenu(){
-		container.setActor(null);
-	}
-	
+		
 	public void vibrate(int ms){
 		if (gameData.usesVibration)
 			Gdx.input.vibrate(ms);
@@ -429,6 +525,10 @@ public class BadNight extends Game{
 	
 	public BadNight.Camera getCamera(){
 		return camera;
+	}
+	
+	public Containers getContainers(){
+		return containers;
 	}
 	
 	static public String getVersionAndRevision(){

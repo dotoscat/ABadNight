@@ -89,7 +89,7 @@ public class Options extends MenuWithParent {
 			// TODO Auto-generated method stub
 			//actor is a button, which belongs to a "VerticalGroup"
 			BadNight.badNight.options.setLastMenu(currentMenu);
-			BadNight.badNight.setContainerWithLastMenu(BadNight.badNight.options);
+			BadNight.badNight.setContainerWithLastMenu(BadNight.badNight.options, BadNight.CURRENT_FROM, BadNight.CURRENT_TO, BadNight.CURRENT_LEAVE);
 		}
 		
 	}

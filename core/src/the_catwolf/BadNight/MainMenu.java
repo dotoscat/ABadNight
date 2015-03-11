@@ -16,7 +16,7 @@ public class MainMenu extends Window{
 		@Override
 		public void changed(ChangeEvent event, Actor actor) {
 			// TODO Auto-generated method stub
-			BadNight.badNight.setContainer(BadNight.badNight.showScores);
+			BadNight.badNight.setContainer(BadNight.badNight.showScores, BadNight.FROM1, BadNight.TO1, BadNight.LEAVE1);
 		}
 		
 	}
@@ -26,7 +26,7 @@ public class MainMenu extends Window{
 		@Override
 		public void changed(ChangeEvent event, Actor actor) {
 			// TODO Auto-generated method stub
-			BadNight.badNight.setContainer(BadNight.badNight.showLeaderboards);
+			BadNight.badNight.setContainer(BadNight.badNight.showLeaderboards, BadNight.FROM1, BadNight.TO1, BadNight.LEAVE1);
 		}
 		
 	}
@@ -46,7 +46,7 @@ public class MainMenu extends Window{
 		@Override
 		public void changed(ChangeEvent event, Actor actor) {
 			// TODO Auto-generated method stub
-			BadNight.badNight.setContainer(BadNight.badNight.selectGameMode);
+			BadNight.badNight.setContainer(BadNight.badNight.selectGameMode, BadNight.FROM1, BadNight.TO1, BadNight.LEAVE1);
 		}
 		
 	}
@@ -66,7 +66,7 @@ public class MainMenu extends Window{
 		@Override
 		public void changed(ChangeEvent event, Actor actor) {
 			// TODO Auto-generated method stub
-			BadNight.badNight.setContainer(BadNight.badNight.credits);
+			BadNight.badNight.setContainer(BadNight.badNight.credits, BadNight.FROM1, BadNight.TO1, BadNight.LEAVE1);
 		}
 		
 	} 

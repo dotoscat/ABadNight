@@ -15,7 +15,7 @@ public class ShowScores extends Window {
 		public void changed(ChangeEvent event, Actor actor) {
 			// TODO Auto-generated method stub
 			BadNight.badNight.scoreScreen.fill(BadNight.badNight.resistance100.getScore());
-			BadNight.badNight.setContainerWithLastMenu(BadNight.badNight.scoreScreen);
+			BadNight.badNight.setContainerWithLastMenu(BadNight.badNight.scoreScreen, BadNight.CURRENT_FROM, BadNight.CURRENT_TO, BadNight.CURRENT_LEAVE);
 		}
 		                
 	}
@@ -26,7 +26,7 @@ public class ShowScores extends Window {
 		public void changed(ChangeEvent event, Actor actor) {
 			// TODO Auto-generated method stub
 			BadNight.badNight.scoreScreen.fill(BadNight.badNight.timeAttack2.getScore());
-			BadNight.badNight.setContainerWithLastMenu(BadNight.badNight.scoreScreen);
+			BadNight.badNight.setContainerWithLastMenu(BadNight.badNight.scoreScreen, BadNight.CURRENT_FROM, BadNight.CURRENT_TO, BadNight.CURRENT_LEAVE);
 		}
 	}
 
@@ -36,7 +36,7 @@ public class ShowScores extends Window {
 		public void changed(ChangeEvent event, Actor actor) {
 			// TODO Auto-generated method stub
 			BadNight.badNight.scoreScreen.fill(BadNight.badNight.timeAttack5.getScore());
-			BadNight.badNight.setContainerWithLastMenu(BadNight.badNight.scoreScreen);
+			BadNight.badNight.setContainerWithLastMenu(BadNight.badNight.scoreScreen, BadNight.CURRENT_FROM, BadNight.CURRENT_TO, BadNight.CURRENT_LEAVE);
 		}
 	}
 	

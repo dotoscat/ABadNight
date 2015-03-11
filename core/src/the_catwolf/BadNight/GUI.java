@@ -61,7 +61,7 @@ public class GUI {
 		@Override
 		public void changed(ChangeEvent event, Actor actor) {
 			// TODO Auto-generated method stub
-			BadNight.badNight.setContainer(lastMenu);
+			BadNight.badNight.setContainer(lastMenu, BadNight.CURRENT_FROM, BadNight.CURRENT_TO, BadNight.CURRENT_LEAVE);
 		}
 		
 	}
