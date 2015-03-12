@@ -109,9 +109,10 @@ public class GUI {
 	public NinePatchDrawable giveMeWindowsDrawable(){
 		return windowDrawable;
 	}
-	
+		
 	public TextButton giveMeTextButton(String text){
 		TextButton newButton = new TextButton(text, textButtonStyle);
+		GUI.setButtonFakeSize(newButton, BadNight.VWIDTH/2f, 42f);
 		return newButton;
 	}
 	
@@ -157,5 +158,5 @@ public class GUI {
 		float padHeight = (height - button.getHeight() )/2f;
 		button.pad(padHeight, padWidth, padHeight, padWidth);
 	}
-	
+		
 }

@@ -126,8 +126,6 @@ public class Options extends MenuWithParent {
 		soundGroup.addActor(soundLabel);
 		
 		soundSlider = gui.giveMeSlider(0f, 5f, 1f/5f);
-		soundSlider.setWidth(128f);
-		soundSlider.setHeight(64f);
 		soundSlider.setValue(game.gameData.soundVolume * 5f);
 		soundSlider.addListener( new SetSoundVolume() );
 		soundGroup.addActor(soundSlider);
@@ -138,8 +136,6 @@ public class Options extends MenuWithParent {
 		musicGroup.addActor(musicLabel);
 		
 		musicSlider = gui.giveMeSlider(0f, 5f, 1f/5f);
-		musicSlider.setWidth(128f);
-		musicSlider.setHeight(64f);
 		musicSlider.setValue(game.gameData.musicVolume * 5f);
 		musicSlider.addListener( new SetMusicVolume() );
 		musicGroup.addActor(musicSlider);
@@ -148,17 +144,18 @@ public class Options extends MenuWithParent {
 		vibrationCheckBox.setChecked( game.gameData.usesVibration );
 		vibrationCheckBox.addListener( new SetVibration() );
 				
-		signGooglePlayServices = gui.giveMeTextButton("");
+		signGooglePlayServices = gui.giveMeTextButton("Sign out");
 		signGooglePlayServices.addListener( new LogoutGooglePlayServices(game.googleServices) );
+		GUI.setButtonFakeSize(signGooglePlayServices, BadNight.VWIDTH/4f, 42f);
 		
 		TextButton backButton = gui.giveMeTextButton("Back");
 		backButton.addListener( new BackFromOptions(this) );
-		GUI.setButtonFakeSize(backButton, 0f, 64f);
 		
-		this.add(soundGroup).fill().space(GUI.ELEMENT_SPACE2).row();
-		this.add(musicGroup).fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(soundGroup).center().fill().space(GUI.ELEMENT_SPACE2).row();
+		this.add(musicGroup).fill().center().space(GUI.ELEMENT_SPACE2).row();
 		this.add(vibrationCheckBox).fill().space(GUI.ELEMENT_SPACE2).row();
 		this.add(signGooglePlayServices).fill().space(GUI.ELEMENT_SPACE2).row();
+		//Why???
 		this.add(backButton).fill().space(GUI.ELEMENT_SPACE2);
 	}
 	

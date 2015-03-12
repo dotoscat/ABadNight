@@ -32,7 +32,6 @@ public class Credits extends VerticalGroup{
 		
 		TextButton back = gui.giveMeABackButton("Back", game.mainMenu);
 		this.addActor(back);
-		GUI.setButtonFakeSize(back, 128f, 32f);
 	}
 	
 }

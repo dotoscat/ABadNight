@@ -41,8 +41,9 @@ public class BadNight extends Game{
 	static public HashMap<String, Integer> leaderboard;
 	
 	static public BadNight badNight;
-	final private static int VERSION=1;
-	final private static int REVISION=1;
+	final private static int VERSION = 1;
+	final private static int FEATURES = 4;
+	final private static int BUGS_SOLVED = 0;
 		
 	AssetManager assets;
 	
@@ -197,6 +198,10 @@ public class BadNight extends Game{
 		
 		public boolean isMoving(){
 			return time < maxTime;
+		}
+		
+		public WidgetGroup getMainContainerWidgetGroup(){
+			return _container[0].getActor();
 		}
 		
 	}
@@ -429,10 +434,17 @@ public class BadNight extends Game{
 	
 	public void setContainerWithLastMenu(MenuWithParent menuWithParent, Vector2 from, Vector2 to, Vector2 leave){
 		menuWithParent.setLastMenu(containers.set(from, to, leave, 0.5f, menuWithParent));
+		this.playSound("explosion", 1f);
 	}
 	
 	public void setContainer(WidgetGroup group, Vector2 from, Vector2 to, Vector2 leave){
+		WidgetGroup lastGroup = containers.getMainContainerWidgetGroup();
 		containers.set(from, to, leave, 0.5f, group);
+		if (lastGroup instanceof MenuWithParent){
+			this.playSound("launcher", 1f);
+		}else{
+			this.playSound("explosion", 1f);
+		}
 	}
 		
 	public void setTitleMenu(){
@@ -528,7 +540,7 @@ public class BadNight extends Game{
 	}
 	
 	static public String getVersionAndRevision(){
-		return "version " + VERSION + "." + REVISION;
+		return "version " + VERSION + "." + FEATURES + "." + BUGS_SOLVED;
 	}
 	
 }
