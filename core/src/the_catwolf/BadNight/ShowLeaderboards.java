@@ -43,7 +43,7 @@ public class ShowLeaderboards extends Window {
 	}
 	
 	public ShowLeaderboards(BadNight game){
-		super("Show", GUI.get().getWindowStyle());
+		super("Leaderboards", GUI.get().getWindowStyle());
 		GUI gui = GUI.get();
 		
 		this.pad(GUI.ELEMENT_SPACE2);

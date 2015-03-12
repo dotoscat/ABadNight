@@ -89,7 +89,7 @@ public class MainMenu extends Window{
 		achievements.addListener( new ShowAchievements() );
 		TextButton leaderboards = gui.giveMeTextButton("Leaderboards");
 		leaderboards.addListener( new ShowLeaderboards() );
-		TextButton localScores = gui.giveMeTextButton("Scores");
+		TextButton localScores = gui.giveMeTextButton("Local scores");
 		localScores.addListener( new ShowScores() );
 		
 		TextButton credits = gui.giveMeTextButton("Credits");

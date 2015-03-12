@@ -41,7 +41,7 @@ public class ShowScores extends Window {
 	}
 	
 	public ShowScores(BadNight game){
-		super("Scores", GUI.get().getWindowStyle());
+		super("Local scores", GUI.get().getWindowStyle());
 		GUI gui = GUI.get();
 		
 		this.pad(GUI.ELEMENT_SPACE2);
