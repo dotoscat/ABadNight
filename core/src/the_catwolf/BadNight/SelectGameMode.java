@@ -51,6 +51,20 @@ public class SelectGameMode extends Window {
 		
 	}
 	
+	static class HowToPlay extends ChangeListener{
+
+		@Override
+		public void changed(ChangeEvent event, Actor actor) {
+			// TODO Auto-generated method stub
+			BadNight.badNight.engine.gameMode = BadNight.badNight.howToPlay;
+			BadNight.badNight.currentGameMode = BadNight.badNight.howToPlay;
+			BadNight.badNight.engine.gameOptions.setTitle((String)BadNight.badNight.engine.gameMode.getName());
+			BadNight.badNight.engine.init();
+			BadNight.badNight.setEngine();
+		}
+		
+	}
+	
 	public SelectGameMode(BadNight game){
 		super("Play", GUI.get().getWindowStyle());
 		GUI gui = GUI.get();
@@ -61,6 +75,10 @@ public class SelectGameMode extends Window {
 		this.setBackground(gui.giveMeWindowsDrawable());
 		this.setMovable(false);
 		this.setResizable(false);
+		
+		TextButton howToPlay = gui.giveMeTextButton("How to play");
+		howToPlay.addListener( new HowToPlay() );
+		this.add(howToPlay).fill().center().space(GUI.ELEMENT_SPACE2).row();
 		
 		TextButton resistanceMode = gui.giveMeTextButton("Resistance 100");
 		resistanceMode.addListener(new Resistance100Mode() );

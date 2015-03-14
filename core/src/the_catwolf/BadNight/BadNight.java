@@ -3,6 +3,7 @@ package the_catwolf.BadNight;
 import java.util.HashMap;
 
 import the_catwolf.BadNight.GameMode.GameMode;
+import the_catwolf.BadNight.GameMode.HowToPlay;
 import the_catwolf.BadNight.GameMode.Resistance;
 import the_catwolf.BadNight.GameMode.TimeAttack;
 
@@ -19,6 +20,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Bezier;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
@@ -88,6 +90,7 @@ public class BadNight extends Game{
 	public GameMode timeAttack2;
 	public GameMode timeAttack5;
 	public GameMode resistance100;
+	public GameMode howToPlay;
 	
 	static private Vector2 velocity;
 	
@@ -105,6 +108,8 @@ public class BadNight extends Game{
 	public static Vector2 CURRENT_FROM = FROM1;
 	public static Vector2 CURRENT_TO = TO1;
 	public static Vector2 CURRENT_LEAVE = LEAVE1;
+	
+	public ShapeRenderer shapeRenderer;
 	
 	static public class Containers{
 		private Container<WidgetGroup>[] _container;
@@ -327,6 +332,7 @@ public class BadNight extends Game{
 		timeAttack2 = new TimeAttack(2, "Time 2:00", BadNight.leaderboard.get("leaderboard_time_2_minutes"), BadNight.achievement.get("achievement_time_of_2_minutes"), "leaderboard_time2", 5);
 		timeAttack5 = new TimeAttack(5, "Time 5:00", BadNight.leaderboard.get("leaderboard_time_5_minutes"), BadNight.achievement.get("achievement_time_of_5_minutes"), "leaderboard_time5", 5);
 		resistance100 = new Resistance(100, "Resistance of 100", BadNight.leaderboard.get("leaderboard_resistance_100_levels"), BadNight.achievement.get("achievement_survivor_of_100"), "leaderboard_resistance100", 5);
+		howToPlay = new HowToPlay("How To Play", -1, -1, "howToPlay", 0);
 		
 		assets = new AssetManager();
 		assets.load("pack.atlas", TextureAtlas.class);
@@ -400,6 +406,8 @@ public class BadNight extends Game{
 		setScreen(engine);
 		engine.setDisplayStars();
 		setTitleMenu();
+		
+		shapeRenderer = new ShapeRenderer(16);
 	}
 		
 	@Override
@@ -430,6 +438,7 @@ public class BadNight extends Game{
 		font.dispose();
 		engine.dispose();
 		ui.dispose();
+		shapeRenderer.dispose();
 	}
 	
 	public void setContainerWithLastMenu(MenuWithParent menuWithParent, Vector2 from, Vector2 to, Vector2 leave){
@@ -537,6 +546,12 @@ public class BadNight extends Game{
 	
 	public Containers getContainers(){
 		return containers;
+	}
+		
+	public void unlockAchievement(int id){
+		if (currentGameMode.unlockAchievements()){
+			googleServices.unlockAchievement(id);
+		}
 	}
 	
 	static public String getVersionAndRevision(){

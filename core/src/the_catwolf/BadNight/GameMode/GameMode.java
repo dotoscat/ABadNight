@@ -17,6 +17,7 @@ public abstract class GameMode {
 	private int leaderboardId;
 	private int achievementId;
 	private Score score;
+	private boolean _unlockAchievements;
 	
 	static protected final float MIN_VELOCITY = 24f;
 	static protected final float MAX_VELOCITY = 64f;
@@ -33,11 +34,21 @@ public abstract class GameMode {
 	private float spawnUfoEach = 7f;
 	private float timeSpawnUfo;
 	
+	public GameMode(String name, int leaderboardId, int achievementId
+			, String fileName, int entries, boolean unlockAchievements){
+		this.name = name;
+		this.leaderboardId = leaderboardId;
+		this.achievementId = achievementId;
+		score = new Score(fileName, entries, name);
+		_unlockAchievements = unlockAchievements;
+	}
+	
 	public GameMode(String name, int leaderboardId, int achievementId, String fileName, int entries){
 		this.name = name;
 		this.leaderboardId = leaderboardId;
 		this.achievementId = achievementId;
 		score = new Score(fileName, entries, name);
+		_unlockAchievements = true;
 	}
 	
 	protected void resetSpawnTimes(){
@@ -97,6 +108,10 @@ public abstract class GameMode {
 	
 	public float getVelocity(){
 		return MIN_VELOCITY + (getDifficulty() * (MAX_VELOCITY - MIN_VELOCITY));
+	}
+	
+	public boolean unlockAchievements(){
+		return _unlockAchievements;
 	}
 	
 	protected abstract void newMeteor(int i);

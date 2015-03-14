@@ -835,23 +835,22 @@ public class Engine implements Screen, InputProcessor {
 		}
 		
 		//System.out.println(state.toString());
-		//System.out.println(BadNight.);
 		
 		if ((state == State.BAD_GAME_OVER || state == State.GOOD_GAME_OVER) && stateTime < 0f){
 			if (state == State.GOOD_GAME_OVER){
 				if (!buildings.hasLostHouses()){
-					BadNight.badNight.googleServices.unlockAchievement(BadNight.achievement.get("achievement_good_defender"));
+					BadNight.badNight.unlockAchievement(BadNight.achievement.get("achievement_good_defender"));
 				}
 				if (buildings.getNumberOfBuildings() == Buildings.BUILDINGS){
-					BadNight.badNight.googleServices.unlockAchievement(BadNight.achievement.get("achievement_here_nothing_happened"));
+					BadNight.badNight.unlockAchievement(BadNight.achievement.get("achievement_here_nothing_happened"));
 				}
 				if (ufoDestroyed == totalUfoInGame){
-					BadNight.badNight.googleServices.unlockAchievement(BadNight.achievement.get("achievement_ufo_destroyer"));
+					BadNight.badNight.unlockAchievement(BadNight.achievement.get("achievement_ufo_destroyer"));
 				}
 				if (!launcher.movedAtSometime()){
-					BadNight.badNight.googleServices.unlockAchievement(BadNight.achievement.get("achievement_lazy"));
+					BadNight.badNight.unlockAchievement(BadNight.achievement.get("achievement_lazy"));
 				}
-				BadNight.badNight.googleServices.unlockAchievement(gameMode.getAchievementId());//achievement by do this mode!
+				BadNight.badNight.unlockAchievement(gameMode.getAchievementId());//achievement by do this mode!
 			}
 			int iEntry = gameMode.getScore().getNewRecordIndex(score.getScore());
 			state = State.INSERT_RECORD;
@@ -923,6 +922,8 @@ public class Engine implements Screen, InputProcessor {
 		if (gameMode != null && state != State.DISPLAY_STARS || ( state == State.RUNNING && !BadNight.badNight.getCamera().isMoving() ) )gameMode.drawHUD(this);
 			
 		batch.end();
+		
+		if(gameMode != null) gameMode.drawHUD(this);
 	}
 
 	private void processMessages(){
@@ -1878,7 +1879,7 @@ public class Engine implements Screen, InputProcessor {
 			aMessage.positionX = collision2.circle.x;
 			aMessage.positionY = collision2.circle.y;
 			aMessage.layer = particles2Layer;
-			BadNight.badNight.googleServices.unlockAchievement(BadNight.achievement.get("achievement_good_aim"));
+			BadNight.badNight.unlockAchievement(BadNight.achievement.get("achievement_good_aim"));
 		}
 		score.addPoints(points * bullseyeMultiplier, 1L, buildings.getNumberOfBuildings());
 	}
