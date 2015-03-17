@@ -34,6 +34,8 @@ public abstract class GameMode {
 	private float spawnUfoEach = 7f;
 	private float timeSpawnUfo;
 	
+	private boolean loseIfAllBuildingsAreDestroyed = true;
+	
 	public GameMode(String name, int leaderboardId, int achievementId
 			, String fileName, int entries, boolean unlockAchievements){
 		this.name = name;
@@ -118,6 +120,14 @@ public abstract class GameMode {
 	public abstract float getValueForAstral();
 	public abstract float getMaxValueForAstral();
 	protected abstract float getDifficulty();
+	
+	protected void setLoseIfAllBuildingsAreDestroyed(boolean set){
+		loseIfAllBuildingsAreDestroyed = set;
+	}
+	
+	public boolean loseIfAllBuildingsAreDestroyed(){
+		return loseIfAllBuildingsAreDestroyed;
+	}
 	
 	public int getLeaderboardId(){
 		return leaderboardId;

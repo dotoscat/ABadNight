@@ -20,7 +20,7 @@ public class DesktopLauncher {
 		config.forceExit = true;
 		config.x = -1;
 		config.y = -1;
-		config.samples = 2;
+		config.samples = 4;
 		//config.overrideDensity = 1024;
 		BadNight.init();
 		BadNight badNight = new BadNight(new DesktopGoogleServices());

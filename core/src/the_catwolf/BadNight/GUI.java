@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -36,6 +37,50 @@ public class GUI {
 	private SliderStyle sliderStyle;
 	private Label.LabelStyle labelStyle;
 	private Window.WindowStyle windowStyle;
+	
+	static public class MessageWindow extends Window{
+
+		private Label modalWindowContent;
+		
+		public MessageWindow(GUI gui, WindowStyle style) {
+			super("", style);
+			setMovable(false);
+			setModal(true);
+			setResizable(false);
+			modalWindowContent = gui.GiveMeLabel("");
+			TextButton close = gui.giveMeTextButton("Ok");
+			close.addListener( new HideModalWindow(this) );
+			add(modalWindowContent).center().fill().pad(ELEMENT_SPACE).row();
+			add(close).center().pad(ELEMENT_SPACE).fill();
+			pad(ELEMENT_SPACE2);
+			this.center();
+		}
+		
+		public void setMessage(String message){
+			modalWindowContent.setText(message);
+			pack();
+		}
+		
+	}
+	
+	private MessageWindow messageWindow;
+	
+	static private class HideModalWindow extends ChangeListener{
+
+		private Window modalWindow;
+		
+		public HideModalWindow(Window theWindow){
+			modalWindow = theWindow;
+		}
+		
+		@Override
+		public void changed(ChangeEvent event, Actor actor) {
+			// TODO Auto-generated method stub
+			BadNight.badNight.getContainers().hide(BadNight.CURRENT_LEAVE, 0.25f);
+			BadNight.badNight.engine.setUserInput(true);
+		}
+		
+	}
 	
 	static public void init(){
 		GUI = new GUI(BadNight.badNight);
@@ -102,8 +147,9 @@ public class GUI {
 			new SpriteDrawable( graphics.createSprite("knob") )
 		);
 		labelStyle = new Label.LabelStyle(game.font, Color.WHITE);
-		
 		windowStyle = new Window.WindowStyle(game.font, Color.WHITE, windowDrawable);
+		
+		messageWindow = new MessageWindow(this, windowStyle);
 	}
 	
 	public NinePatchDrawable giveMeWindowsDrawable(){
@@ -112,7 +158,7 @@ public class GUI {
 		
 	public TextButton giveMeTextButton(String text){
 		TextButton newButton = new TextButton(text, textButtonStyle);
-		GUI.setButtonFakeSize(newButton, BadNight.VWIDTH/2f, 42f);
+		setButtonFakeSize(newButton, BadNight.VWIDTH/2f, 42f);
 		return newButton;
 	}
 	
@@ -151,6 +197,10 @@ public class GUI {
 	
 	public WindowStyle getWindowStyle(){
 		return windowStyle;
+	}
+	
+	public MessageWindow getMessageWindow(){
+		return messageWindow;
 	}
 	
 	static public void setButtonFakeSize(Button button, float width, float height){

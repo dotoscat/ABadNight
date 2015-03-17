@@ -6,6 +6,7 @@ import the_catwolf.BadNight.CreateParticleEffect.Point;
 import the_catwolf.BadNight.Engine.Layer.ArrayLayer;
 import the_catwolf.BadNight.Engine.Layer.Drawable;
 import the_catwolf.BadNight.Engine.Layer.SparseLayer;
+import the_catwolf.BadNight.GUI.MessageWindow;
 import the_catwolf.BadNight.MessageSystem.Message;
 import the_catwolf.BadNight.MessageSystem.Type;
 import the_catwolf.BadNight.GameMode.GameMode;
@@ -34,6 +35,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
@@ -84,7 +86,9 @@ public class Engine implements Screen, InputProcessor {
 	PowerUp[] powerUp;
 	LifeSpan[] lifeSpan;
 	Astral[] astral;
-		
+
+	private boolean shootAMissile;
+	
 	public static interface Layer{
 		
 		public static abstract class Drawable{
@@ -276,6 +280,7 @@ public class Engine implements Screen, InputProcessor {
 		
 	public enum State{
 		PAUSED,
+		//PAUSED_AND_SHOW_MESSAGE,
 		RUNNING,
 		BAD_GAME_OVER,
 		GOOD_GAME_OVER,
@@ -452,6 +457,10 @@ public class Engine implements Screen, InputProcessor {
 			return _movedAtSometime;
 		}
 		
+		public void resetTimeWithoutMoving(){
+			timeWithoutMoving = 0f;
+		}
+		
 	}
 	
 	private Launcher launcher;
@@ -556,7 +565,7 @@ public class Engine implements Screen, InputProcessor {
 			}
 			return index;
 		}
-		
+				
 	}
 	
 	class PauseGame extends ChangeListener{
@@ -830,7 +839,8 @@ public class Engine implements Screen, InputProcessor {
 	public void render(float delta) {
 		// TODO Auto-generated method stub
 		
-		if (state == State.RUNNING && !buildings.hasBuildings()){
+		if (state == State.RUNNING && gameMode.loseIfAllBuildingsAreDestroyed()
+				&& !buildings.hasBuildings()){
 			setBadGameOver("You really had a bad night...", 2f);
 		}
 		
@@ -1446,6 +1456,8 @@ public class Engine implements Screen, InputProcessor {
 		aPoint.key = "smoke";
 		aPoint.layer = particlesLayer;
 		
+		shootAMissile = true;
+		
 		return i;
 	}
 	
@@ -1757,6 +1769,7 @@ public class Engine implements Screen, InputProcessor {
 		ufoDestroyed = 0;
 		totalUfoInGame = 0;
 		meteorsOnScreen = 0;
+		shootAMissile = false;
 		
 		resumeEngine();
 		gameMode.init(this);
@@ -1830,6 +1843,14 @@ public class Engine implements Screen, InputProcessor {
 	public void showAnimatedPauseMenu(){
 		BadNight.badNight.setContainer(gameOptions, BadNight.CURRENT_FROM, BadNight.CURRENT_TO, BadNight.CURRENT_LEAVE);
 		stopUFOSounds();
+	}
+	
+	public void pauseAndShowDialog(String text){
+		MessageWindow messageWindow = GUI.get().getMessageWindow();
+		messageWindow.setMessage(text);
+		BadNight.badNight.setContainer(messageWindow, BadNight.CURRENT_FROM, BadNight.CURRENT_TO, BadNight.CURRENT_LEAVE);
+		setUserInput(false);
+		powerGauge.stopToAcum();
 	}
 	
 	public void showPauseMenu(){
@@ -1915,6 +1936,26 @@ public class Engine implements Screen, InputProcessor {
 			list.add(entity);
 		}
 
+	}
+	
+	public void restoreAllBuildings(){
+		final float margin = 32f;
+		final float width = BadNight.VWIDTH - margin;
+		final float step = width / Buildings.BUILDINGS;
+		for(int i = 0; i < Buildings.BUILDINGS; i += 1){
+			if (buildings.getBuildingEntityIndex(i) == -1){
+				int iBuilding = newBuilding(margin + step * i, FLOOR);
+				buildings.addBuilding(i, iBuilding);
+			}
+		}
+	}
+	
+	public void resetShootAMissile(){
+		shootAMissile = false;
+	}
+	
+	public boolean getShootAMissile(){
+		return shootAMissile;
 	}
 	
 }

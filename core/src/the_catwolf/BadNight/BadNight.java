@@ -61,7 +61,7 @@ public class BadNight extends Game{
 			
 	public BitmapFont font;
 	
-	Engine engine;
+	public Engine engine;
 	public Title title;
 	public MainMenu mainMenu;
 	public Options options;
@@ -139,6 +139,7 @@ public class BadNight extends Game{
 				if (time > maxTime){
 					time = maxTime;
 					_container[0].setTouchable(Touchable.enabled);
+					_container[1].setActor(null);
 				}
 				float alpha = time / maxTime;
 				tmp.x = _container[0].getX();
@@ -380,13 +381,10 @@ public class BadNight extends Game{
 		Gdx.input.setInputProcessor(inputMulti);
 		
 		badNight = this;
-
+		ui = new Stage( viewport, batch );
 		GUI.init();
 		PowerUp.init();
-		
-		ui = new Stage( viewport, batch );
 		containers = new Containers(ui);
-		
 		inputMulti.addProcessor(0, ui);
 		
 		title = new Title(this);
@@ -544,6 +542,10 @@ public class BadNight extends Game{
 		return camera;
 	}
 	
+	public Stage getStage(){
+		return ui;
+	}
+	
 	public Containers getContainers(){
 		return containers;
 	}
@@ -553,9 +555,9 @@ public class BadNight extends Game{
 			googleServices.unlockAchievement(id);
 		}
 	}
-	
+		
 	static public String getVersionAndRevision(){
 		return "version " + VERSION + "." + FEATURES + "." + BUGS_SOLVED;
 	}
-	
+		
 }
