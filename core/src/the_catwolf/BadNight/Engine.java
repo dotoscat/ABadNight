@@ -708,7 +708,7 @@ public class Engine implements Screen, InputProcessor {
 	}
 	
 	private Score score;
-	
+		
 	public Engine(BadNight game){		
 		menuStars = new IntArray(ENTITIES);
 		engineStars = new IntArray(32);

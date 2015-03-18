@@ -13,6 +13,8 @@ Save this file as res/values/games-ids.xml in your project.
   <string name="achievement_time_of_5_minutes">CgkI0YTlv50OEAIQFg</string>
   <string name="achievement_ufo_destroyer">CgkI0YTlv50OEAIQGA</string>
   <string name="achievement_lazy">CgkI0YTlv50OEAIQGQ</string>
+  <string name="achievement_come_on">CgkI0YTlv50OEAIQGg</string>
+  <string name="achievement_you_can">CgkI0YTlv50OEAIQGw</string>
   <string name="leaderboard_resistance_100_levels">CgkI0YTlv50OEAIQAQ</string>
   <string name="leaderboard_time_2_minutes">CgkI0YTlv50OEAIQEg</string>
   <string name="leaderboard_time_5_minutes">CgkI0YTlv50OEAIQFw</string>

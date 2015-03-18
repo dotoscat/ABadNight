@@ -45,7 +45,8 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 		BadNight.achievement.put("achievement_time_of_2_minutes", R.string.achievement_time_of_2_minutes);
 		BadNight.achievement.put("achievement_time_of_5_minutes", R.string.achievement_time_of_5_minutes);
 		BadNight.achievement.put("achievement_ufo_destroyer", R.string.achievement_ufo_destroyer);
-		
+		BadNight.achievement.put("achievement_come_on", R.string.achievement_come_on);
+		BadNight.achievement.put("achievement_you_can", R.string.achievement_you_can);
 		BadNight.leaderboard.put("leaderboard_resistance_100_levels", R.string.leaderboard_resistance_100_levels);
 		BadNight.leaderboard.put("leaderboard_time_2_minutes", R.string.leaderboard_time_2_minutes);
 		BadNight.leaderboard.put("leaderboard_time_5_minutes", R.string.leaderboard_time_5_minutes);
@@ -53,8 +54,8 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 		BadNight badNight = null;
 		badNight = new BadNight(this);
 		
-		initialize(badNight, config);
-		//createWithAds(badNight, config);
+		//initialize(badNight, config);
+		createWithAds(badNight, config);
 		BadNight.badNight = badNight;
 		
 		// Create the GameHelper.

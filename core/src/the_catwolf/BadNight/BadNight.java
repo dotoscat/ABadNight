@@ -312,7 +312,8 @@ public class BadNight extends Game{
 		achievement.put("achievement_time_of_5_minutes", 7);
 		achievement.put("achievement_ufo_destroyer", 8);
 		achievement.put("achievement_lazy", 9);
-		
+		achievement.put("achievement_come_on", 10);
+		achievement.put("achievement_you_can", 11);
 		leaderboard = new HashMap<String, Integer>();
 		leaderboard.put("leaderboard_resistance_100_levels", 1);
 		leaderboard.put("leaderboard_time_2_minutes", 2);
