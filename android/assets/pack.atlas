@@ -20,14 +20,14 @@ building
   index: 1
 building
   rotate: false
-  xy: 324, 177
+  xy: 230, 71
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 building
   rotate: false
-  xy: 358, 211
+  xy: 390, 177
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -41,7 +41,7 @@ building1
   index: -1
 building2
   rotate: false
-  xy: 324, 211
+  xy: 390, 211
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -71,14 +71,14 @@ cannon
   index: -1
 checkboxOff
   rotate: false
-  xy: 494, 203
+  xy: 492, 203
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 checkboxOn
   rotate: false
-  xy: 494, 185
+  xy: 31, 13
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -99,7 +99,7 @@ gaugeFill
   index: -1
 knob
   rotate: false
-  xy: 494, 221
+  xy: 492, 221
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
@@ -107,6 +107,13 @@ knob
 meteor1
   rotate: false
   xy: 230, 105
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+meteor2
+  rotate: false
+  xy: 324, 179
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -127,56 +134,56 @@ moveArea
   index: -1
 multiplier
   rotate: false
-  xy: 358, 177
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 1
-multiplier
-  rotate: false
-  xy: 392, 211
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 2
-multiplier
-  rotate: false
-  xy: 392, 177
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 3
-points
-  rotate: false
-  xy: 230, 71
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 1
-points
-  rotate: false
   xy: 264, 71
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
+  index: 1
+multiplier
+  rotate: false
+  xy: 424, 211
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+multiplier
+  rotate: false
+  xy: 424, 177
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+points
+  rotate: false
+  xy: 296, 137
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+points
+  rotate: false
+  xy: 330, 145
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
   index: 2
 points
   rotate: false
-  xy: 426, 211
+  xy: 229, 37
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 rocket
   rotate: false
-  xy: 426, 177
+  xy: 263, 37
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 rocket
   rotate: false
-  xy: 296, 137
+  xy: 458, 221
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -191,70 +198,70 @@ sliderBackground
   index: -1
 smoke1
   rotate: false
-  xy: 330, 143
+  xy: 458, 187
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 smoke2
   rotate: false
-  xy: 364, 143
+  xy: 390, 143
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 smoke3
   rotate: false
-  xy: 398, 143
+  xy: 424, 143
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 star
   rotate: false
-  xy: 166, 21
+  xy: 432, 125
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tank
   rotate: false
-  xy: 432, 143
+  xy: 458, 153
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 tank
   rotate: false
-  xy: 229, 37
+  xy: 330, 111
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 tank
   rotate: false
-  xy: 263, 37
+  xy: 458, 119
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 tank
   rotate: false
-  xy: 460, 221
+  xy: 132, 5
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
 tank
   rotate: false
-  xy: 460, 187
+  xy: 166, 5
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 5
 tank
   rotate: false
-  xy: 330, 109
+  xy: 364, 109
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -268,35 +275,35 @@ title
   index: -1
 ufo
   rotate: false
-  xy: 364, 109
+  xy: 398, 109
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 ufo
   rotate: false
-  xy: 398, 109
+  xy: 200, 3
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 ufo
   rotate: false
-  xy: 432, 109
+  xy: 234, 3
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 ufo
   rotate: false
-  xy: 132, 5
+  xy: 268, 3
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
 window
   rotate: false
-  xy: 31, 5
+  xy: 364, 153
   size: 24, 24
   split: 2, 2, 3, 3
   orig: 24, 24

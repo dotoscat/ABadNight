@@ -53,8 +53,8 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 		BadNight badNight = null;
 		badNight = new BadNight(this);
 		
-		//initialize(badNight, config);
-		createWithAds(badNight, config);
+		initialize(badNight, config);
+		//createWithAds(badNight, config);
 		BadNight.badNight = badNight;
 		
 		// Create the GameHelper.
@@ -224,7 +224,7 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 		if ( isSignedIn() ){
 			startActivityForResult(Games.Achievements.getAchievementsIntent(gameHelper.getApiClient()), REQUEST_CODE_UNUSED);
 		}else{
-			gameHelper.makeSimpleDialog("Please go to Options and sign in");
+			//gameHelper.makeSimpleDialog("Please go to Options and sign in");
 		}
 	}
 
