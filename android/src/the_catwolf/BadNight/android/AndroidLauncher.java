@@ -173,7 +173,7 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 		if (isSignedIn() == true)
 		{
 			String strId = getString(BadNight.badNight.getCurrentGameMode().getLeaderboardId());
-			log("BadNight", "send to: " + strId);
+			//log("BadNight", "send to: " + strId);
 			Games.Leaderboards.submitScore(gameHelper.getApiClient(), strId, score);
 		}else{
 		// Maybe sign in here then redirect to submitting score?
@@ -187,7 +187,7 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 		if (isSignedIn() == true){
 			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient() , getString(BadNight.badNight.getCurrentGameMode().getLeaderboardId()) ), REQUEST_CODE_UNUSED );
 		}else{
-			//maybe show an message for sign in
+			//something else
 		}
 		
 	}
