@@ -32,7 +32,17 @@ public class HowToPlay extends GameMode {
 			"Ok, now shoot inside the red area.\n"
 			+ "Touch to store power\n"
 			+ "then just lift your finger to shoot.\n"
-			+ "Your aim is the point where you lift.";
+			+ "Your aim is the point where you lift.\n\n"
+			+ "Use these missile against the meteors.\n"
+			+ "Don't destroy the buildings!";
+	
+	private static String endOfTutorial = "" +
+			"END OF TUTORIAL\n\n"
+			+ "Press Menu or Back button\n"
+			+ "to open the pause menu.\n"
+			+ "Press Retry to repeat tutorial.\n"
+			+ "Press Exit to return to the main menu.\n\n"
+			+ "But why not practice a bit?";
 	
 	private static String finalText = "" +
 			"Nice! You use those missiles\n"
@@ -152,7 +162,7 @@ public class HowToPlay extends GameMode {
 		}
 		
 		if (doneShoot && !doneFinalText){
-			engine.pauseAndShowDialog(finalText);
+			engine.pauseAndShowDialog(endOfTutorial);
 			engine.restoreAllBuildings();
 			engine.getLauncer().resetTimeWithoutMoving();
 			doneFinalText = true;

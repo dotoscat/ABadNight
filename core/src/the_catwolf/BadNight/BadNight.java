@@ -44,8 +44,8 @@ public class BadNight extends Game{
 	
 	static public BadNight badNight;
 	final private static int VERSION = 1;
-	final private static int FEATURES = 5;
-	final private static int BUGS_SOLVED = 2;
+	final private static int FEATURES = 6;
+	final private static int BUGS_SOLVED = 0;
 		
 	AssetManager assets;
 	
