@@ -42,7 +42,7 @@ public class HowToPlay extends GameMode {
 			+ "to open the pause menu.\n"
 			+ "Press Retry to repeat tutorial.\n"
 			+ "Press Exit to return to the main menu.\n\n"
-			+ "But why not practice a bit?";
+			+ "But, why not practice a bit?";
 	
 	private static String finalText = "" +
 			"Nice! You use those missiles\n"

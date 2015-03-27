@@ -69,19 +69,12 @@ public abstract class GameMode {
 		if (engine.getUfoOnScreen() == 0) timeSpawnUfo += dt;
 		int currentMeteorsOnScreen = getIntValueFromDifficulty(MIN_METEORS_ON_SCREEN, MAX_METEORS_ON_SCREEN);
 		Buildings buildings = engine.getBuildings();
-		if (buildings.hasBuildings() && timeSpawnMeteor > spawnMeteorEach  && engine.getMeteorsOnScreen() < currentMeteorsOnScreen){
-			int buildingIndex = buildings.getRandomValidBuildingIndex(buildings.getMaxBuildings());
+		if (timeSpawnMeteor > spawnMeteorEach  && engine.getMeteorsOnScreen() < currentMeteorsOnScreen){
+			int iBuilding = MathUtils.random(Engine.Buildings.BUILDINGS-1);
 			float x = MathUtils.random(0f, BadNight.VWIDTH);
 			float y = BadNight.VHEIGHT+32f;
-			float targetX = MathUtils.random(BadNight.VWIDTH);
-			float targetY = Engine.FLOOR;
-			if (buildingIndex != -1){
-				Physics physics = engine.getEntityPhysics(buildingIndex);
-				targetX = physics.getPosition().x;
-				targetY = physics.getPosition().y;
-			}
-			 
-			Vector2 vel = BadNight.getVelocityFromTo(x, y, targetX, targetY, getVelocity());
+			Vector2 position = buildings.getBuildingPosition(iBuilding);			
+			Vector2 vel = BadNight.getVelocityFromTo(x, y, position.x, position.y, getVelocity());
 			float size = Engine.meteorSize[MathUtils.random(Engine.meteorSize.length-1)];
 			int i = engine.newMeteor( x, y, vel.x, vel.y, size, Color.WHITE);
 			newMeteor(i);

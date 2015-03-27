@@ -470,18 +470,23 @@ public class Engine implements Screen, InputProcessor {
 		final public static int BUILDINGS = 7;
 		
 		private int[] building;
+		private Vector2[] buildingPosition;
 		private int maxBuildings;
-		float margin;
-		float spaceBetweenBuildings;
-		float buildingSize;
 		private int buildings;
-		boolean lostHouse = false;
+		private boolean lostHouse = false;
 		
-		public Buildings(int nBuildings, float buildingSize, float margin){
-			this.margin = margin;
-			this.buildingSize = buildingSize;
+		public Buildings(int nBuildings, float buildingSize, float floor, float width){
 			maxBuildings = nBuildings;
 			building = new int[nBuildings];
+			float step = width / nBuildings;
+			float margin = step / 2f;
+			//float step2 = space / (nBuildings-1);
+			this.buildingPosition = new Vector2[nBuildings];
+			for(int i = 0; i < nBuildings; i += 1){
+				float x = margin + step * i;
+				//System.out.println("x: " + x);
+				buildingPosition[i] = new Vector2(x, floor);
+			}
 			reset();
 		}
 		
@@ -543,12 +548,8 @@ public class Engine implements Screen, InputProcessor {
 			return buildings;
 		}
 		
-		public float getBuildingYPosition(int position, float width){
-			float buildingPosition = 0f;
-			float space = width - margin * 2f;
-			float marginBetweenBuildings = space - (maxBuildings * buildingSize) / maxBuildings;//margin between buildings
-			buildingPosition = margin + marginBetweenBuildings/2f + position * (buildingSize + marginBetweenBuildings);
-			return buildingPosition;
+		public Vector2 getBuildingPosition(int position){
+			return buildingPosition[position];
 		}
 		
 		public boolean hasLostHouses(){
@@ -783,7 +784,7 @@ public class Engine implements Screen, InputProcessor {
 
 		score = new Score();
 		
-		buildings = new Buildings(Buildings.BUILDINGS, 16f, 8f);
+		buildings = new Buildings(Buildings.BUILDINGS, 8f, Engine.FLOOR, BadNight.VWIDTH);
 		
 		messageStringBuilder = new StringBuilder();
 		messageTextBounds = new BitmapFont.TextBounds();
@@ -1332,11 +1333,8 @@ public class Engine implements Screen, InputProcessor {
 		if (buildings.isFull()) return;
 		int position = MathUtils.random(buildings.getMaxBuildings()-1);
 		while(buildings.getBuildingEntityIndex(position) != -1)position = MathUtils.random(buildings.getMaxBuildings()-1);
-		final float margin = 32f;
-		final float width = BadNight.VWIDTH - margin;
-		final float step = width / Buildings.BUILDINGS;
-		float positionY = margin + step * position;
-		int i = newBuilding(positionY, FLOOR);
+		Vector2 vposition = buildings.getBuildingPosition(position);
+		int i = newBuilding(vposition.x, vposition.y);
 		buildings.addBuilding(position, i);
 	}
 	
@@ -1752,11 +1750,13 @@ public class Engine implements Screen, InputProcessor {
 		createNewStars(MathUtils.random(12, 22), 0f, FLOOR, BadNight.VWIDTH, BadNight.VHEIGHT-FLOOR, engineStars);
 		//fill the buildings in order...
 		{
-			final float margin = 32f;
-			final float width = BadNight.VWIDTH - margin;
-			final float step = width / Buildings.BUILDINGS;
+			//final float margin = 32f;
+			//final float width = BadNight.VWIDTH - margin;
+			//final float step = width / Buildings.BUILDINGS;
 			for(int i = 0; i < Buildings.BUILDINGS; i += 1){
-				int iBuilding = newBuilding(margin + step * i, FLOOR);
+				Vector2 position = buildings.getBuildingPosition(i);
+				//System.out.println(position.toString());
+				int iBuilding = newBuilding(position.x, position.y);
 				buildings.addBuilding(i, iBuilding);
 			}
 		
@@ -1940,12 +1940,10 @@ public class Engine implements Screen, InputProcessor {
 	}
 	
 	public void restoreAllBuildings(){
-		final float margin = 32f;
-		final float width = BadNight.VWIDTH - margin;
-		final float step = width / Buildings.BUILDINGS;
 		for(int i = 0; i < Buildings.BUILDINGS; i += 1){
 			if (buildings.getBuildingEntityIndex(i) == -1){
-				int iBuilding = newBuilding(margin + step * i, FLOOR);
+				Vector2 position = buildings.getBuildingPosition(i);
+				int iBuilding = newBuilding(position.x, position.y);
 				buildings.addBuilding(i, iBuilding);
 			}
 		}
