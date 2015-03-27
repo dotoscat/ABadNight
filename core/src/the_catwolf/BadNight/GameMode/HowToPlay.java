@@ -51,6 +51,7 @@ public class HowToPlay extends GameMode {
 		super(name, leaderboardId, achievementId, fileName, entries, false);
 		// TODO Auto-generated constructor stub
 		this.setLoseIfAllBuildingsAreDestroyed(false);
+		this.setShowMenu(false);
 	}
 
 	@Override

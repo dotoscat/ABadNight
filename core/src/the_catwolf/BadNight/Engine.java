@@ -1284,6 +1284,7 @@ public class Engine implements Screen, InputProcessor {
 	public void pause() {
 		// TODO Auto-generated method stub
 		if (state != State.RUNNING) return;
+		if (gameMode != null && !gameMode.getShowMenu()) return;
 		showPauseMenu();
 		userPause();
 		setUserInput(false);

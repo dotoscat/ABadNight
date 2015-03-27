@@ -35,6 +35,7 @@ public abstract class GameMode {
 	private float timeSpawnUfo;
 	
 	private boolean loseIfAllBuildingsAreDestroyed = true;
+	private boolean showMenu = true;
 	
 	public GameMode(String name, int leaderboardId, int achievementId
 			, String fileName, int entries, boolean unlockAchievements){
@@ -163,5 +164,13 @@ public abstract class GameMode {
 		float max = getFloatValueFromDifficulty(max1, max2);
 		return MathUtils.random(min, max);
 	}
-		
+	
+	protected void setShowMenu(boolean show){
+		showMenu = show;
+	}
+	
+	public boolean getShowMenu(){
+		return showMenu;
+	}
+	
 }
