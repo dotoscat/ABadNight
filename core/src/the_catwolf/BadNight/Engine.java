@@ -368,6 +368,7 @@ public class Engine implements Screen, InputProcessor {
 		
 		private float timeWithoutMoving = 0f;
 		
+		private float initialTimeParalized;
 		private float timeParalized;
 		private boolean _movedAtSometime;
 		
@@ -396,11 +397,15 @@ public class Engine implements Screen, InputProcessor {
 		}
 		
 		public void update(Engine engine, float dt){
+			Physics basePhysics = engine.physics[base];
 			if (timeParalized > 0f){
+				if (initialTimeParalized == timeParalized){
+					basePhysics.velocity.x = 0f;
+					toX = basePhysics.position.x;
+				}
 				timeParalized -= dt;
 				return;
 			}
-			Physics basePhysics = engine.physics[base];
 			if (
 				(basePhysics.velocity.x > 0f && basePhysics.position.x > toX) ||
 				(basePhysics.velocity.x < 0f && basePhysics.position.x < toX)
@@ -446,6 +451,7 @@ public class Engine implements Screen, InputProcessor {
 		}
 		
 		public void setTimeParalized(float time){
+			initialTimeParalized = time;
 			timeParalized = time;
 		}
 		
