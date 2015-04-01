@@ -27,6 +27,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -952,7 +953,7 @@ public class Engine implements Screen, InputProcessor {
 				BadNight.badNight.playSound("explosion", MathUtils.random(0.9f, 1.1f));
 				break;
 			case CREATE_METEOR:
-				newMeteor(aMessage.positionX, aMessage.positionY, aMessage.velX, aMessage.velY, aMessage.value, aMessage.color);
+				newMeteor(aMessage.positionX, aMessage.positionY, aMessage.velX, aMessage.velY, aMessage.value, aMessage.sprite);
 				break;
 			case DESTROY_ENTITY:
 				int i = aMessage.i;
@@ -1153,7 +1154,7 @@ public class Engine implements Screen, InputProcessor {
 							//int n = MathUtils.random(2, 3);
 							int n = 2;
 							for(int piece = 0; piece < n; piece += 1){
-								Message createMeteor = messageSystem.addMessage(Type.CREATE_METEOR, "");
+								Message createMeteor = messageSystem.addMessage(Type.CREATE_METEOR, "splitting meteor");
 								createMeteor.positionX = position.x;
 								createMeteor.positionY = position.y;
 								float newMeteorAngle = angle + (-22f + piece * 44f);
@@ -1163,6 +1164,7 @@ public class Engine implements Screen, InputProcessor {
 								createMeteor.velY = MathUtils.sin(newMeteorAngle) * speed;
 								createMeteor.value = collision[id2].circle.radius / 2f;
 								createMeteor.color = Color.WHITE;
+								createMeteor.sprite = graphics[id2].sprite;
 							}
 						}
 						manageHit(physics[id], collision[id2], meteorsPoints.get(radius));	
@@ -1368,7 +1370,41 @@ public class Engine implements Screen, InputProcessor {
 		return i;
 	}
 
-	public int newMeteor(float x, float y, float velX, float velY, float radius, Color color){
+	public int newMeteor(float x, float y, float velX, float velY, float radius, Sprite sprite){
+		
+		int i = newMeteor(x, y, velX, velY, radius);
+		if (i < 0) return i;
+				
+		graphics[i].reset();
+		graphics[i].sprite.set(sprite);
+		graphics[i].sprite.setSize(radius*2f, radius*2f);
+		graphics[i].sprite.setOriginCenter();
+		graphics[i].spriteOffset.x = -radius;
+		graphics[i].spriteOffset.y = -radius;
+		graphics[i].sprite.setColor(Color.WHITE);
+		graphics[i].sprite.setRotation(MathUtils.random(360f));
+
+		return i;
+	}
+	
+	public int newMeteor(float x, float y, float velX, float velY, float radius, String key){
+		
+		int i = newMeteor(x, y, velX, velY, radius);
+		if (i < 0) return i;
+				
+		graphics[i].reset();
+		setSpriteWithAtlas(graphics[i].sprite, textureAtlas, key);
+		graphics[i].sprite.setSize(radius*2f, radius*2f);
+		graphics[i].sprite.setOriginCenter();
+		graphics[i].spriteOffset.x = -radius;
+		graphics[i].spriteOffset.y = -radius;
+		graphics[i].sprite.setColor(Color.WHITE);
+		graphics[i].sprite.setRotation(MathUtils.random(360f));
+
+		return i;
+	}
+	
+	private int newMeteor(float x, float y, float velX, float velY, float radius){
 		int i = newEntity(PHYSICS_COMPONENT | COLLISION_COMPONENT | GRAPHICS_COMPONENT /*| CARRYPARTICLEEFFECT_COMPONENT*/, gameObjectsLayer);
 		if (i < 0) return i;
 		
@@ -1380,36 +1416,7 @@ public class Engine implements Screen, InputProcessor {
 		collision[i].circle.radius = radius;
 		collision[i].isA = Collision.METEOR;
 		collision[i].collidesWith = Collision.ROCKET;
-		graphics[i].reset();
-		graphics[i].sprite.setRotation(MathUtils.random(360f));
-		setSpriteWithAtlas(graphics[i].sprite, textureAtlas, "meteor1");
-		graphics[i].sprite.setSize(radius*2f, radius*2f);
-		graphics[i].sprite.setOriginCenter();
-		graphics[i].spriteOffset.x = -radius;
-		graphics[i].spriteOffset.y = -radius;
-		graphics[i].sprite.setColor(color);
-		/*
-		createParticleEffect[i].setUsedPoints(1);
-		Point aPoint = createParticleEffect[i].getPoint(0);
-		aPoint.offset.set(0f, 0f);
-		aPoint.key = "smoke2";
-		aPoint.layer = particlesLayer;
-		
-		int points = MathUtils.random(1, 2);
-		createParticleEffect[i].setUsedPoints(points);
-		collision[i].circle.setPosition(radius, radius);//this later will be update, so don't worry
-		for(int iPoint = 0; iPoint < points; iPoint += 1){
-			Point aPoint = createParticleEffect[i].getPoint(iPoint);
-			aPoint.offset.x = MathUtils.random(radius*2f);
-			aPoint.offset.y = MathUtils.random(radius*2f);
-			aPoint.key = "smoke";
-			aPoint.layer = particles2Layer;
-			while( !collision[i].circle.contains(aPoint.offset) ){
-				aPoint.offset.x = MathUtils.random(radius*2f);
-				aPoint.offset.y = MathUtils.random(radius*2f);
-			}
-		}
-		*/
+
 		meteorsOnScreen += 1L;
 		
 		return i;

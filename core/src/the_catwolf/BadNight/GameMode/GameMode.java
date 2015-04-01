@@ -76,7 +76,13 @@ public abstract class GameMode {
 			Vector2 position = buildings.getBuildingPosition(iBuilding);			
 			Vector2 vel = BadNight.getVelocityFromTo(x, y, position.x, position.y, getVelocity());
 			float size = Engine.meteorSize[MathUtils.random(Engine.meteorSize.length-1)];
-			int i = engine.newMeteor( x, y, vel.x, vel.y, size, Color.WHITE);
+			String key = "";
+			if (MathUtils.randomBoolean()){
+				key = "meteor1";
+			}else{
+				key = "meteor1B";
+			}
+			int i = engine.newMeteor( x, y, vel.x, vel.y, size, key);
 			newMeteor(i);
 			timeSpawnMeteor = 0f;
 			spawnMeteorEach = MathUtils.random(2f, 4f);

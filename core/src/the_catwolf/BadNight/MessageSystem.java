@@ -3,6 +3,7 @@ package the_catwolf.BadNight;
 import java.util.Iterator;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import the_catwolf.BadNight.Engine.Layer;
 import the_catwolf.BadNight.MessageSystem.Message;
@@ -35,6 +36,7 @@ public class MessageSystem implements Iterable<Message>, Iterator<Message> {
 		public float value;
 		public Color color;
 		public int i = 0;
+		public Sprite sprite;
 		
 		public String getOrigin(){
 			return origin;

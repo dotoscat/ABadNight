@@ -13,21 +13,21 @@ HUD
   index: -1
 building
   rotate: false
-  xy: 166, 39
+  xy: 230, 71
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 building
   rotate: false
-  xy: 230, 71
+  xy: 264, 71
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 building
   rotate: false
-  xy: 390, 177
+  xy: 296, 137
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -41,7 +41,7 @@ building1
   index: -1
 building2
   rotate: false
-  xy: 390, 211
+  xy: 166, 39
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -71,14 +71,14 @@ cannon
   index: -1
 checkboxOff
   rotate: false
-  xy: 492, 203
+  xy: 490, 203
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 checkboxOn
   rotate: false
-  xy: 31, 13
+  xy: 57, 13
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -99,7 +99,7 @@ gaugeFill
   index: -1
 knob
   rotate: false
-  xy: 492, 221
+  xy: 490, 221
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
@@ -107,6 +107,13 @@ knob
 meteor1
   rotate: false
   xy: 230, 105
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+meteor1B
+  rotate: false
+  xy: 390, 179
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
@@ -134,56 +141,56 @@ moveArea
   index: -1
 multiplier
   rotate: false
-  xy: 264, 71
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 1
-multiplier
-  rotate: false
-  xy: 424, 211
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 2
-multiplier
-  rotate: false
-  xy: 424, 177
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 3
-points
-  rotate: false
-  xy: 296, 137
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 1
-points
-  rotate: false
   xy: 330, 145
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
+  index: 1
+multiplier
+  rotate: false
+  xy: 364, 145
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
   index: 2
+multiplier
+  rotate: false
+  xy: 398, 145
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
 points
   rotate: false
   xy: 229, 37
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
+  index: 1
+points
+  rotate: false
+  xy: 263, 37
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+points
+  rotate: false
+  xy: 456, 221
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
   index: 3
 rocket
   rotate: false
-  xy: 263, 37
+  xy: 456, 187
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 rocket
   rotate: false
-  xy: 458, 221
+  xy: 432, 145
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -198,49 +205,49 @@ sliderBackground
   index: -1
 smoke1
   rotate: false
-  xy: 458, 187
+  xy: 330, 111
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 smoke2
   rotate: false
-  xy: 390, 143
+  xy: 364, 111
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 smoke3
   rotate: false
-  xy: 424, 143
+  xy: 398, 111
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 star
   rotate: false
-  xy: 432, 125
+  xy: 302, 19
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 tank
   rotate: false
-  xy: 458, 153
+  xy: 432, 111
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 tank
   rotate: false
-  xy: 330, 111
+  xy: 466, 153
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 tank
   rotate: false
-  xy: 458, 119
+  xy: 466, 119
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -261,7 +268,7 @@ tank
   index: 5
 tank
   rotate: false
-  xy: 364, 109
+  xy: 466, 85
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -275,35 +282,35 @@ title
   index: -1
 ufo
   rotate: false
-  xy: 398, 109
+  xy: 200, 3
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 ufo
   rotate: false
-  xy: 200, 3
+  xy: 234, 3
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 ufo
   rotate: false
-  xy: 234, 3
+  xy: 268, 3
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 ufo
   rotate: false
-  xy: 268, 3
+  xy: 297, 37
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
 window
   rotate: false
-  xy: 364, 153
+  xy: 31, 5
   size: 24, 24
   split: 2, 2, 3, 3
   orig: 24, 24
