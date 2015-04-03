@@ -363,6 +363,10 @@ public class Engine implements Screen, InputProcessor {
 		
 		private int base = -1;
 		private int cannon = -1;
+		private int wheel1 = -1;
+		private int wheel2 = -1;
+		private Vector2 wheel1offset;
+		private Vector2 wheel2offset;
 		private Vector2 offsetLaunchPoint;
 		private Vector2 launchPoint;
 		private float toX;
@@ -376,6 +380,8 @@ public class Engine implements Screen, InputProcessor {
 		public Launcher(float offsetX, float offsetY){
 			offsetLaunchPoint = new Vector2(offsetX, offsetY);
 			launchPoint = new Vector2();
+			wheel1offset = new Vector2(-10f, -6f);
+			wheel2offset = new Vector2(10f, -6f);
 		}
 		
 		public void setBase(int i){
@@ -397,6 +403,22 @@ public class Engine implements Screen, InputProcessor {
 			return cannon;
 		}
 		
+		public void setWheel1(int i){
+			wheel1 = i;
+		}
+		
+		public void setWheel2(int i){
+			wheel2 = i;
+		}
+		
+		public int getWheel1(){
+			return wheel1;
+		}
+		
+		public int setWheel2(){
+			return wheel2;
+		}
+		
 		public void update(Engine engine, float dt){
 			Physics basePhysics = engine.physics[base];
 			if (timeParalized > 0f){
@@ -411,15 +433,29 @@ public class Engine implements Screen, InputProcessor {
 				(basePhysics.velocity.x > 0f && basePhysics.position.x > toX) ||
 				(basePhysics.velocity.x < 0f && basePhysics.position.x < toX)
 			){
-				Graphics baseGraphics = engine.graphics[base];
-				baseGraphics.animationTimeFactor = 0f;
 				basePhysics.velocity.x = 0f;
 				basePhysics.position.x = toX;
+			}
+			else{
+				if (basePhysics.velocity.x < 0f){
+					graphics[wheel1].sprite.rotate(180f * dt);
+					graphics[wheel2].sprite.rotate(180f * dt);
+				}
+				else if (basePhysics.velocity.x > 0f){
+					graphics[wheel1].sprite.rotate(-180f * dt);
+					graphics[wheel2].sprite.rotate(-180f * dt);
+				}
 			}
 			
 			if ((basePhysics.velocity.x == 0f)){
 				timeWithoutMoving += dt;
 			}
+			
+			graphics[wheel1].update(basePhysics.position.x + wheel1offset.x,
+					basePhysics.position.y + wheel1offset.y, 0f);
+			
+			graphics[wheel2].update(basePhysics.position.x + wheel2offset.x,
+					basePhysics.position.y + wheel2offset.y, 0f);
 			
 			Graphics cannonGraphics = engine.graphics[cannon];
 			cannonGraphics.update(basePhysics.position.x, basePhysics.position.y+8f, 0f);
@@ -436,7 +472,7 @@ public class Engine implements Screen, InputProcessor {
 			Vector2 basePhysicsPosition = engine.physics[base].position;
 			launchPoint.add(basePhysicsPosition);
 		}
-		
+				
 		public void moveToX(float x){
 			toX = x;
 			timeWithoutMoving = 0f;
@@ -740,7 +776,6 @@ public class Engine implements Screen, InputProcessor {
 		animation.put("building", new Animation(0.25f, textureAtlas.findRegions("building")) );//building animation
 		animation.put("multiplier", new Animation(0.25f, textureAtlas.findRegions("multiplier")) );
 		animation.put("points", new Animation(0.25f, textureAtlas.findRegions("points")) );
-		animation.put("tank", new Animation(0.25f, textureAtlas.findRegions("tank")) );
 		
 		graphics = new Graphics[ENTITIES];
 		for(int i = 0; i < ENTITIES; i += 1){
@@ -787,7 +822,7 @@ public class Engine implements Screen, InputProcessor {
 		gameObjectsLayer = new ArrayLayer(32);
 		particles2Layer = new SparseLayer(ENTITIES);
 		powerUpLayer = new ArrayLayer(8);
-		launcherLayer = new ArrayLayer(4);
+		launcherLayer = new ArrayLayer(8);
 
 		score = new Score();
 		
@@ -1539,17 +1574,33 @@ public class Engine implements Screen, InputProcessor {
 	}
 
 	public void newMissileLauncher(){
+		
+		int wheel1 = newEntity(GRAPHICS_COMPONENT, launcherLayer);
+		launcher.setWheel1(wheel1);
+		Engine.setSpriteWithAtlas(graphics[wheel1].sprite, textureAtlas, "wheel");
+		graphics[wheel1].sprite.setSize(16f, 16f);
+		graphics[wheel1].sprite.setOriginCenter();
+		graphics[wheel1].spriteOffset.x = -8f;
+		graphics[wheel1].spriteOffset.y = -8f;
+		
+		int wheel2 = newEntity(GRAPHICS_COMPONENT, launcherLayer);
+		launcher.setWheel2(wheel2);
+		Engine.setSpriteWithAtlas(graphics[wheel2].sprite, textureAtlas, "wheel");
+		graphics[wheel2].sprite.setSize(16f, 16f);
+		graphics[wheel2].sprite.setOriginCenter();
+		graphics[wheel2].spriteOffset.x = -8f;
+		graphics[wheel2].spriteOffset.y = -8f;
+		
 		int base = newEntity(LAUNCHER_COMPONENT | COLLISION_COMPONENT | PHYSICS_COMPONENT | GRAPHICS_COMPONENT, launcherLayer);
 		launcher.setBase(base);
 		physics[base].reset();
 		physics[base].position.set(BadNight.VWIDTH / 2f, FLOOR);
 		graphics[base].reset();
-		graphics[base].animation = animation.get("tank");
-		graphics[base].animationTimeFactor = 0f;
-		graphics[base].sprite.setSize(32f, 32f);
+		Engine.setSpriteWithAtlas(graphics[base].sprite, textureAtlas, "base");
+		graphics[base].sprite.setSize(32f, 16f);
 		graphics[base].sprite.setOriginCenter();
 		graphics[base].spriteOffset.x = -32/2f;
-		graphics[base].spriteOffset.y = -32/2f;
+		graphics[base].spriteOffset.y = -16/2f;
 		collision[base].reset();
 		collision[base].isA = Collision.LAUNCHER;
 		collision[base].circle.radius = 16f;
@@ -1563,7 +1614,7 @@ public class Engine implements Screen, InputProcessor {
 		graphics[cannon].sprite.setOrigin(8f, 8f);
 		graphics[cannon].spriteOffset.x = -8f;
 		graphics[cannon].spriteOffset.y = -8f;
-		
+				
 		BadNight.badNight.point.set(BadNight.VWIDTH/2f, BadNight.ENGINE_POSITION, 0f);
 		launcher.updateCannon(this, BadNight.badNight.point);
 	}
@@ -1692,11 +1743,11 @@ public class Engine implements Screen, InputProcessor {
 			launcher.moveToX(point.x);
 			int base = launcher.getBase();
 			physics[base].velocity.x = BadNight.VWIDTH / 2f;
-			graphics[base].animationTimeFactor = 1f;
-			graphics[base].animation.setPlayMode(PlayMode.LOOP);
+			//graphics[base].animationTimeFactor = 1f;
+			//graphics[base].animation.setPlayMode(PlayMode.LOOP);
 			if (point.x < physics[base].position.x){
 				physics[base].velocity.x = -physics[base].velocity.x;
-				graphics[base].animation.setPlayMode(PlayMode.LOOP_REVERSED);
+				//graphics[base].animation.setPlayMode(PlayMode.LOOP_REVERSED);
 			}
 			return false;
 		}

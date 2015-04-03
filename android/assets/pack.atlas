@@ -2,13 +2,20 @@
 pack.png
 size: 512,256
 format: RGBA8888
-filter: Linear,Linear
+filter: Nearest,Nearest
 repeat: none
 HUD
   rotate: false
   xy: 2, 171
   size: 320, 32
   orig: 320, 32
+  offset: 0, 0
+  index: -1
+base
+  rotate: false
+  xy: 296, 119
+  size: 32, 16
+  orig: 32, 16
   offset: 0, 0
   index: -1
 building
@@ -64,21 +71,21 @@ buttonUp
   index: -1
 cannon
   rotate: false
-  xy: 296, 119
+  xy: 31, 13
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
   index: -1
 checkboxOff
   rotate: false
-  xy: 490, 203
+  xy: 200, 26
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 checkboxOn
   rotate: false
-  xy: 57, 13
+  xy: 490, 203
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -197,7 +204,7 @@ rocket
   index: 2
 sliderBackground
   rotate: false
-  xy: 296, 108
+  xy: 218, 33
   size: 9, 9
   split: 3, 3, 3, 3
   orig: 9, 9
@@ -226,53 +233,11 @@ smoke3
   index: -1
 star
   rotate: false
-  xy: 302, 19
+  xy: 91, 13
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-tank
-  rotate: false
-  xy: 432, 111
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 1
-tank
-  rotate: false
-  xy: 466, 153
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 2
-tank
-  rotate: false
-  xy: 466, 119
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 3
-tank
-  rotate: false
-  xy: 132, 5
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 4
-tank
-  rotate: false
-  xy: 166, 5
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 5
-tank
-  rotate: false
-  xy: 466, 85
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 6
 title
   rotate: false
   xy: 2, 41
@@ -282,35 +247,42 @@ title
   index: -1
 ufo
   rotate: false
-  xy: 200, 3
+  xy: 432, 111
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 ufo
   rotate: false
-  xy: 234, 3
+  xy: 466, 153
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 ufo
   rotate: false
-  xy: 268, 3
+  xy: 466, 119
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 ufo
   rotate: false
-  xy: 297, 37
+  xy: 132, 5
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
+wheel
+  rotate: false
+  xy: 166, 5
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 window
   rotate: false
-  xy: 31, 5
+  xy: 65, 5
   size: 24, 24
   split: 2, 2, 3, 3
   orig: 24, 24
