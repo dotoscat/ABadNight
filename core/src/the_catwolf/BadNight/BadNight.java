@@ -560,5 +560,16 @@ public class BadNight extends Game{
 	static public String getVersionAndRevision(){
 		return "version " + VERSION + "." + FEATURES + "." + BUGS_SOLVED;
 	}
-		
+	
+	public boolean signInAtTheStart(){
+		//return gameData.signAtTheStart;
+		return false;
+	}
+	
+	public void setSignInAtTheStart(boolean set){
+		//gameData.signAtTheStart = set;
+		gameData.save();
+		options.signInAtTheStart.setChecked(set);
+	}
+	
 }

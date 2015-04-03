@@ -72,6 +72,7 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 			@Override
 			public void onSignInFailed()
 			{
+				//BadNight.badNight.setSignInAtTheStart(false);
 			}
 		};
 
@@ -132,7 +133,9 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 				
 				@Override
 				public void run(){
-					gameHelper.beginUserInitiatedSignIn();
+					if (BadNight.badNight.signInAtTheStart()){
+						gameHelper.beginUserInitiatedSignIn();
+					}
 				}
 			} );
 		}

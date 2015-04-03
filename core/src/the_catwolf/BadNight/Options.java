@@ -15,6 +15,7 @@ public class Options extends MenuWithParent {
 	public Slider soundSlider;
 	public Slider musicSlider;
 	public CheckBox vibrationCheckBox;
+	public CheckBox signInAtTheStart;
 	
 	private TextButton signGooglePlayServices;
 	
@@ -52,6 +53,16 @@ public class Options extends MenuWithParent {
 			if (BadNight.badNight.gameData.usesVibration){
 				Gdx.input.vibrate(500);
 			}
+		}
+		
+	}
+	
+	static class SetSignIn extends ChangeListener{
+
+		@Override
+		public void changed(ChangeEvent event, Actor actor) {
+			// TODO Auto-generated method stub
+			//BadNight.badNight.gameData.signAtTheStart = !BadNight.badNight.gameData.signAtTheStart;
 		}
 		
 	}
@@ -143,7 +154,12 @@ public class Options extends MenuWithParent {
 		vibrationCheckBox = gui.giveMeCheckBox("Vibration");
 		vibrationCheckBox.setChecked( game.gameData.usesVibration );
 		vibrationCheckBox.addListener( new SetVibration() );
-				
+		/*
+		signInAtTheStart = gui.giveMeCheckBox("Sign in\nGoogle Play Services\nat the start");
+		signInAtTheStart.addListener( new SetSignIn() );
+		signInAtTheStart.setChecked(game.gameData.signAtTheStart);
+		GUI.setButtonFakeSize(signInAtTheStart, BadNight.VWIDTH/4f, 42f);
+		*/
 		signGooglePlayServices = gui.giveMeTextButton("Sign out");
 		signGooglePlayServices.addListener( new LogoutGooglePlayServices(game.googleServices) );
 		GUI.setButtonFakeSize(signGooglePlayServices, BadNight.VWIDTH/4f, 42f);
@@ -154,6 +170,7 @@ public class Options extends MenuWithParent {
 		this.add(soundGroup).center().fill().space(GUI.ELEMENT_SPACE2).row();
 		this.add(musicGroup).fill().center().space(GUI.ELEMENT_SPACE2).row();
 		this.add(vibrationCheckBox).fill().space(GUI.ELEMENT_SPACE2).row();
+		//this.add(signInAtTheStart).fill().space(GUI.ELEMENT_SPACE2).row();
 		this.add(signGooglePlayServices).fill().space(GUI.ELEMENT_SPACE2).row();
 		//Why???
 		this.add(backButton).fill().space(GUI.ELEMENT_SPACE2);
