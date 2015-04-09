@@ -36,7 +36,7 @@ public class DesktopGoogleServices implements GoogleServices {
 	public void showScores()
 	{
 	System.out.println("DesktopGoogleServices: showScores()");
-	System.out.println( BadNight.badNight.getCurrentGameMode().getLeaderboardId() );
+	//System.out.println( BadNight.badNight.getCurrentGameMode().getLeaderboardId() );
 	}
 
 	@Override
@@ -56,5 +56,11 @@ public class DesktopGoogleServices implements GoogleServices {
 	public void unlockAchievement(int id) {
 		// TODO Auto-generated method stub
 		System.out.println("DesktopGoogleServices: showAchievements(" + id + ")");
+	}
+
+	@Override
+	public void showAd() {
+		// TODO Auto-generated method stub
+		System.out.println("Show a fantastic ad");
 	}
 }

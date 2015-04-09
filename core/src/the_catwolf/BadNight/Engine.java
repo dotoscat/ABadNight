@@ -427,6 +427,16 @@ public class Engine implements Screen, InputProcessor {
 					toX = basePhysics.position.x;
 				}
 				timeParalized -= dt;
+				//update components
+				graphics[wheel1].update(basePhysics.position.x + wheel1offset.x,
+						basePhysics.position.y + wheel1offset.y, 0f);
+				
+				graphics[wheel2].update(basePhysics.position.x + wheel2offset.x,
+						basePhysics.position.y + wheel2offset.y, 0f);
+				
+				Graphics cannonGraphics = engine.graphics[cannon];
+				cannonGraphics.update(basePhysics.position.x, basePhysics.position.y+8f, 0f);
+				//--
 				return;
 			}
 			if (
@@ -450,7 +460,7 @@ public class Engine implements Screen, InputProcessor {
 			if ((basePhysics.velocity.x == 0f)){
 				timeWithoutMoving += dt;
 			}
-			
+			//update components
 			graphics[wheel1].update(basePhysics.position.x + wheel1offset.x,
 					basePhysics.position.y + wheel1offset.y, 0f);
 			
@@ -684,11 +694,12 @@ public class Engine implements Screen, InputProcessor {
 			BadNight.badNight.scoreScreen.fill(engine.gameMode.getScore());
 			BadNight.badNight.scoreScreen.setLastMenu(engine.gameOptions);
 			BadNight.badNight.setContainer(BadNight.badNight.scoreScreen, BadNight.CURRENT_FROM, BadNight.CURRENT_TO, BadNight.CURRENT_LEAVE);
+			BadNight.badNight.getContainers().showAdAtEnd();
 		}
 
 		@Override
 		public void canceled() {
-			engine.showPauseMenu();
+			engine.showPauseMenu(true);
 			// TODO Auto-generated method stub
 		}
 		
@@ -911,9 +922,10 @@ public class Engine implements Screen, InputProcessor {
 			submitScoreButton.setVisible(true);
 			if (iEntry > -1){
 				insertRecord.iEntry = iEntry;
-				Gdx.input.getTextInput(insertRecord, "New Record!", "player", null);
+				stopUFOSounds();
+				Gdx.input.getTextInput(insertRecord, "New Record!", "Player", null);
 			}else{
-				showPauseMenu();
+				showPauseMenu(true);
 			}
 		}else if ((state == State.BAD_GAME_OVER || state == State.GOOD_GAME_OVER) && stateTime >= 0f){
 			stateTime -= delta;
@@ -1329,7 +1341,7 @@ public class Engine implements Screen, InputProcessor {
 		// TODO Auto-generated method stub
 		if (state != State.RUNNING) return;
 		if (gameMode != null && !gameMode.getShowMenu()) return;
-		showPauseMenu();
+		showPauseMenu(true);
 		userPause();
 		setUserInput(false);
 	}
@@ -1918,8 +1930,12 @@ public class Engine implements Screen, InputProcessor {
 		powerGauge.stopToAcum();
 	}
 	
-	public void showPauseMenu(){
-		BadNight.badNight.getContainers().set(gameOptions, BadNight.CURRENT_TO);
+	public void showPauseMenu(boolean withAd){
+		//BadNight.badNight.getContainers().set(gameOptions, BadNight.CURRENT_TO);
+		BadNight.badNight.getContainers().set(BadNight.CURRENT_FROM, BadNight.CURRENT_TO, BadNight.CURRENT_TO, 0.25f, gameOptions);
+		if (withAd){
+			BadNight.badNight.getContainers().showAdAtEnd();
+		}
 		stopUFOSounds();
 	}
 				

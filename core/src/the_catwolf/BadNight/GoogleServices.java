@@ -8,5 +8,6 @@ public interface GoogleServices {
 	public void showScores();
 	public void showAchievements();
 	public void unlockAchievement(int id);
+	public void showAd();
 	public boolean isSignedIn();
 }

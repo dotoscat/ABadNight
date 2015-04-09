@@ -119,6 +119,8 @@ public class BadNight extends Game{
 		
 		private static Vector2 tmp = new Vector2();
 		
+		private boolean showAd = false;
+		
 		public Containers(Stage stage){
 			_container = new Container[2];
 			_container[0] = new Container<WidgetGroup>();
@@ -136,8 +138,10 @@ public class BadNight extends Game{
 		public void step(float dt){
 			if (time < maxTime){
 				time += dt;
-				if (time > maxTime){
+				if (_container[0].getX() == _toPosition[0].x
+						&& _container[0].getY() == _toPosition[0].y){
 					time = maxTime;
+					//System.out.println("Set touchable");
 					_container[0].setTouchable(Touchable.enabled);
 					_container[1].setActor(null);
 				}
@@ -150,6 +154,11 @@ public class BadNight extends Game{
 				tmp.y = _container[1].getY();
 				tmp.interpolate(_toPosition[1], alpha, Interpolation.exp5Out);
 				_container[1].setPosition(tmp.x, tmp.y);
+			}
+			if (maxTime > 0f && _container[0].getX() == _toPosition[0].x
+					&& _container[0].getY() == _toPosition[0].y && showAd){
+				BadNight.badNight.googleServices.showAd();
+				showAd = false;
 			}
 		}
 		
@@ -181,6 +190,10 @@ public class BadNight extends Game{
 			return lastGroup;
 		}
 		
+		public void showAdAtEnd(){
+			showAd = true;
+		}
+		
 		public void hide(Vector2 moveTo, float maxTime){
 			
 			time = 0f;
@@ -209,7 +222,7 @@ public class BadNight extends Game{
 		public WidgetGroup getMainContainerWidgetGroup(){
 			return _container[0].getActor();
 		}
-		
+				
 	}
 	
 	static public class Camera extends OrthographicCamera{
@@ -225,6 +238,8 @@ public class BadNight extends Game{
 		private Vector3 newPosition;
 		private float time;
 		private float maxTime;
+		
+		private boolean showAd = false;
 		
 		public Camera(float viewportWidth, float viewportHeight){
 			super(VWIDTH, VHEIGHT);
@@ -248,7 +263,7 @@ public class BadNight extends Game{
 			}
 			if (movement == Movement.TO_TARGET){
 				//System.out.println(time + " / " + maxTime + "; " + time/maxTime);
-				position.interpolate(newPosition, time/maxTime, Interpolation.pow2Out);
+				position.interpolate(newPosition, time/maxTime, Interpolation.pow5Out);
 				update();
 			}
 			else if (movement == Movement.PATH){
@@ -260,7 +275,11 @@ public class BadNight extends Game{
 					path.valueAt(this.position, time/maxTime);
 					update();
 				}
-			}			
+			}
+			if (showAd && position.x == newPosition.x && position.y == newPosition.y){
+				BadNight.badNight.googleServices.showAd();
+				showAd = false;
+			}
 		}
 		
 		public void doBackCome(float maxTime){
@@ -295,6 +314,10 @@ public class BadNight extends Game{
 			}
 			return itIs;
 			//return this.position.y != newPosition.y;
+		}
+		
+		public void showAd(){
+			showAd = true;
 		}
 		
 	}
@@ -468,6 +491,7 @@ public class BadNight extends Game{
 		containers.set(mainMenu, BadNight.CURRENT_TO);
 		engine.setDisplayStars();
 		camera.setPositionTo(BadNight.MAIN_MENU_POSITION, 1.5f);
+		//camera.showAd();
 		stopCurrentMusic();
 	}
 		

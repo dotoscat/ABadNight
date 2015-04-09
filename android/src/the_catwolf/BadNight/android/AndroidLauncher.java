@@ -1,6 +1,7 @@
 package the_catwolf.BadNight.android;
 
 import the_catwolf.BadNight.BadNight;
+import the_catwolf.BadNight.Engine.State;
 import the_catwolf.BadNight.GoogleServices;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -17,9 +19,8 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.GameHelper;
 import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
+
+import com.avocarrot.androidsdk.AvocarrotInterstitial;
 
 //GameHelper 
 
@@ -27,7 +28,7 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 	
 	private final static int REQUEST_CODE_UNUSED = 9002;
 	private GameHelper gameHelper;
-	private AdView adView;
+	private AvocarrotInterstitial ad;
 	
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -54,8 +55,8 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 		BadNight badNight = null;
 		badNight = new BadNight(this);
 		
-		//initialize(badNight, config);
-		createWithAds(badNight, config);
+		initialize(badNight, config);
+		//createWithAds(badNight, config);
 		BadNight.badNight = badNight;
 		
 		// Create the GameHelper.
@@ -83,15 +84,24 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 		
 		Gdx.input.setCatchBackKey(true);
 		Gdx.input.setCatchMenuKey(true);
+		
+		initAndConfigureAds();
 	}
 
+	private void initAndConfigureAds(){
+		ad = new AvocarrotInterstitial(this, "937d24cf7c13d82c93ed692b49b41e660a330aad", "2165888277818daad1cbcb16ee1de2dbe4a4f55b");
+		ad.setSandbox(false);
+		ad.setLogger(false, "ALL");
+		ad.loadAd();
+	}
+	/*
 	private void createWithAds(ApplicationListener listener, AndroidApplicationConfiguration config){		
-		RelativeLayout layout = new RelativeLayout(this);
+		LinearLayout layout = new LinearLayout(this);
 		
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		Window window = this.getWindow();
-		window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		//window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+        //        WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 		
 		View gameView = this.initializeForView(listener, config);
@@ -123,7 +133,7 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 		
 		setContentView(layout);
 	}
-	
+	*/
 	@Override
 	public void signIn() {
 		// TODO Auto-generated method stub
@@ -188,7 +198,8 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 	public void showScores() {
 		// TODO Auto-generated method stub
 		if (isSignedIn() == true){
-			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient() , getString(BadNight.badNight.getCurrentGameMode().getLeaderboardId()) ), REQUEST_CODE_UNUSED );
+			//startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient() , getString(BadNight.badNight.getCurrentGameMode().getLeaderboardId()) ), REQUEST_CODE_UNUSED );
+			startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(gameHelper.getApiClient()), REQUEST_CODE_UNUSED);
 		}else{
 			//something else
 		}
@@ -241,6 +252,22 @@ public class AndroidLauncher extends AndroidApplication implements GoogleService
 		}else{
 			//gameHelper.makeSimpleDialog("Please go to Options and sign in");
 		}
+	}
+
+	@Override
+	public void showAd() {
+		// TODO Auto-generated method stub
+		ad.showAd();
+	}
+	
+	@Override
+	public void onBackPressed(){
+	    if(BadNight.badNight.engine.isState(State.DISPLAY_STARS)){
+	    	this.showAd();
+	        return;
+	    }
+	    //put your normal onBackPressed code here 
+	    super.onBackPressed();
 	}
 	
 }

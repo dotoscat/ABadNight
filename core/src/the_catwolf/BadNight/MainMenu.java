@@ -26,7 +26,8 @@ public class MainMenu extends Window{
 		@Override
 		public void changed(ChangeEvent event, Actor actor) {
 			// TODO Auto-generated method stub
-			BadNight.badNight.setContainer(BadNight.badNight.showLeaderboards, BadNight.FROM1, BadNight.TO1, BadNight.LEAVE1);
+			//BadNight.badNight.setContainer(BadNight.badNight.showLeaderboards, BadNight.FROM1, BadNight.TO1, BadNight.LEAVE1);
+			BadNight.badNight.googleServices.showScores();
 		}
 		
 	}
