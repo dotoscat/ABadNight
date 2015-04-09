@@ -65,3 +65,6 @@ build/
 
 ##ABadNight working directory
 work/
+android/libs
+android/lint.xml
+
